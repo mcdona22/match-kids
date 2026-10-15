@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:little_star_flashcards/features/flash_cards/flash_screen.dart';
 import 'package:little_star_flashcards/main.dart';
 
 enum AppRoute { home, numberRecognition }
