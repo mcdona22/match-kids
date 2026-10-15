@@ -1,0 +1,6 @@
+{
+  "name": "Little Star Number Flash Cards",
+  "description": "An interactive early childhood flash card and counting app to help children recognize numbers and match dot patterns.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

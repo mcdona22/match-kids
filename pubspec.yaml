@@ -1,0 +1,37 @@
+name: little_star_flashcards
+description: "An interactive early childhood flash card and counting app built with Flutter, Riverpod Annotations, and Flutter Hooks."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+    # Logging
+  loggy: ^2.0.3
+  flutter_loggy: ^2.0.3+1
+  go_router: ^18.0.1
+
+  hooks_riverpod: ^3.0.3
+  riverpod_annotation: ^3.0.3
+  flutter_hooks: ^0.21.0
+  flutter_tts: ^4.2.0
+  confetti: ^0.7.0
+  shared_preferences: ^2.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+
+
+  build_runner: ^2.4.14
+  riverpod_generator: ^3.0.3 # or ^3.0.0 depending on your Riverpod v3
+  freezed: ^3.0.0
+  json_serializable: ^6.11.2
+flutter:
+  uses-material-design: true

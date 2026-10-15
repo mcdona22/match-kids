@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Little Star Number Flash Cards</title>
+    <meta name="description" content="An interactive early childhood flash card and counting app to help children recognize numbers and match dot patterns." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        background: linear-gradient(180deg, #FEF3C7 0%, #FFFBEB 50%, #FEF3C7 100%);
+        min-height: 100vh;
+        color: #1E293B;
+        display: flex;
+        flex-direction: column;
+      }
+      .app-header {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(8px);
+        border-bottom: 2px solid #FDE68A;
+        padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .brand-icon {
+        width: 44px;
+        height: 44px;
+        background: linear-gradient(135deg, #F59E0B, #EC4899);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.2);
+      }
+      .brand-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #78350F;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .badge-range {
+        font-size: 11px;
+        background: #FEF3C7;
+        color: #92400E;
+        padding: 2px 8px;
+        border-radius: 12px;
+        border: 1px solid #FCD34D;
+      }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn {
+        padding: 8px 14px;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 13px;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: transform 0.15s, background-color 0.15s;
+      }
+      .btn:active {
+        transform: scale(0.96);
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #F59E0B, #EA580C);
+        color: white;
+        box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
+      }
+      .btn-success {
+        background: linear-gradient(135deg, #10B981, #059669);
+        color: white;
+        font-size: 17px;
+        padding: 14px 24px;
+        border-radius: 18px;
+        width: 100%;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      }
+      .btn-reveal {
+        background: linear-gradient(135deg, #F59E0B, #F43F5E);
+        color: white;
+        font-size: 16px;
+        padding: 14px 24px;
+        border-radius: 18px;
+        width: 100%;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+      }
+      .btn-stars {
+        background: #FEF3C7;
+        color: #78350F;
+        border: 1px solid #FCD34D;
+      }
+      .btn-secondary {
+        background: white;
+        color: #475569;
+        border: 1px solid #CBD5E1;
+      }
+      .main-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        max-width: 540px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .star-challenge-tag {
+        background: #F59E0B;
+        color: white;
+        font-weight: 800;
+        font-size: 12px;
+        padding: 4px 14px;
+        border-radius: 20px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.04); }
+      }
+      .card-box {
+        background: white;
+        border-radius: 32px;
+        border: 4px solid #FDE68A;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+        padding: 24px;
+        width: 100%;
+        min-height: 460px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        position: relative;
+      }
+      .numeral-circle {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #FDE68A, #F472B6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: inset 0 2px 8px rgba(0,0,0,0.1), 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        margin: 16px 0;
+      }
+      .numeral-inner {
+        width: 176px;
+        height: 176px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 96px;
+        font-weight: 900;
+        color: #1E293B;
+      }
+      .progress-container {
+        width: 100%;
+        max-width: 280px;
+        margin: 8px 0;
+      }
+      .progress-bar {
+        background: #FEF3C7;
+        height: 10px;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        background: linear-gradient(90deg, #F59E0B, #F43F5E);
+        height: 100%;
+        width: 100%;
+        transition: width 0.1s linear;
+      }
+      .progress-text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #78350F;
+        margin-top: 4px;
+      }
+      /* Ten-Frame Styles */
+      .ten-frame-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        background: #FFFBEB;
+        border: 2px solid #FCD34D;
+        border-radius: 18px;
+        padding: 8px;
+        margin: 6px 0;
+        width: 100%;
+        max-width: 380px;
+      }
+      .ten-frame-cell {
+        aspect-ratio: 1;
+        border-radius: 14px;
+        background: #FEF3C7;
+        border: 1px dashed #FCD34D;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        cursor: pointer;
+        position: relative;
+        transition: transform 0.1s;
+      }
+      .ten-frame-cell.has-dot {
+        background: white;
+        border: 2px solid #FDE68A;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      }
+      .ten-frame-cell.counted {
+        background: #ECFDF5;
+        border-color: #10B981;
+      }
+      .count-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background: #10B981;
+        color: white;
+        font-size: 11px;
+        font-weight: 800;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      }
+      .card-counter {
+        margin-top: 12px;
+        font-size: 14px;
+        font-weight: 800;
+        color: #78350F;
+      }
+      /* Modal Styles */
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        z-index: 100;
+      }
+      .modal-backdrop.active {
+        display: flex;
+      }
+      .modal-box {
+        background: white;
+        border-radius: 28px;
+        border: 4px solid #FCD34D;
+        max-width: 460px;
+        width: 100%;
+        padding: 24px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        border-bottom: 2px solid #FEF3C7;
+        padding-bottom: 10px;
+      }
+      .slider-control {
+        width: 100%;
+        accent-color: #F59E0B;
+        margin: 8px 0;
+      }
+      .chips-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 6px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        padding: 6px 12px;
+        border-radius: 12px;
+        border: 1px solid #CBD5E1;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        background: white;
+      }
+      .chip.selected {
+        background: #F59E0B;
+        color: white;
+        border-color: #D97706;
+      }
+      .info-box {
+        background: #FEF3C7;
+        padding: 12px;
+        border-radius: 14px;
+        border: 1px solid #FCD34D;
+        font-size: 12px;
+        color: #78350F;
+        margin: 12px 0;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">⭐</div>
+        <div>
+          <div class="brand-title">
+            <span>Number Cards</span>
+            <span class="badge-range" id="headerRange">1 – 10</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-stars" id="starBtn">⭐ <span id="starCount">0</span></button>
+        <button class="btn btn-secondary" id="soundBtn" title="Toggle Sound">🔊</button>
+        <button class="btn btn-primary" id="parentBtn">Parent Zone ⚙️</button>
+      </div>
+    </header>
+
+    <!-- Main Flash Card Screen -->
+    <main class="main-container">
+      <div id="starChallengeTag" class="star-challenge-tag" style="display: none;">
+        ⭐ Star Challenge! (Upper 20%)
+      </div>
+
+      <div class="card-box" id="cardBox">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+
+      <div class="card-counter" id="cardCounter">Card 1 of 10</div>
+    </main>
+
+    <!-- Parent Zone Modal -->
+    <div class="modal-backdrop" id="parentModal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2 style="font-size: 20px; font-weight: 800; color: #78350F;">Parent Zone ⚙️</h2>
+          <button class="btn btn-secondary" id="closeParentModal" style="padding: 4px 8px;">✕</button>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="font-weight: 800; font-size: 14px;">Upper Threshold (Skill Level): <span id="upperLabel" style="color: #D97706;">10</span></label>
+          <input type="range" min="3" max="30" value="10" class="slider-control" id="upperSlider">
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="font-weight: 800; font-size: 14px;">Cards in Each Stack:</label>
+          <div class="chips-row" id="stackChips">
+            <div class="chip" data-val="5">5 Cards</div>
+            <div class="chip selected" data-val="10">10 Cards</div>
+            <div class="chip" data-val="15">15 Cards</div>
+            <div class="chip" data-val="20">20 Cards</div>
+          </div>
+        </div>
+
+        <div class="info-box" id="breakdownInfo">
+          <strong>Stack Challenge Breakdown:</strong><br>
+          • 8 cards (80%) Foundation Range (1 – 7)<br>
+          • 2 cards (20%) Upper Range (8 – 10)<br>
+          All cards are shuffled & randomised every round!
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="font-weight: 800; font-size: 14px;">Flash Interval:</label>
+          <div class="chips-row" id="intervalChips">
+            <div class="chip" data-val="2">2s</div>
+            <div class="chip selected" data-val="3">3s</div>
+            <div class="chip" data-val="5">5s</div>
+            <div class="chip" data-val="8">8s</div>
+            <div class="chip" data-val="0">Tap Only</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="saveSettingsBtn" style="width: 100%; justify-content: center; padding: 12px; margin-top: 10px;">
+          Save & Start New Stack
+        </button>
+      </div>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="modal-backdrop" id="celebrationModal">
+      <div class="modal-box" style="text-align: center;">
+        <div style="font-size: 64px; margin-bottom: 8px;">🏆</div>
+        <h2 style="font-size: 24px; font-weight: 800; color: #78350F;">Hooray! Stack Complete!</h2>
+        <p style="margin: 8px 0; color: #475569;" id="celebSummary">You matched all 10 cards!</p>
+        <div style="font-size: 18px; font-weight: 800; color: #D97706; margin-bottom: 16px;">
+          ⭐ +10 Stars Awarded!
+        </div>
+        <button class="btn btn-success" id="playAgainBtn">
+          Play Next Stack! 🚀
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Audio Synthesizer (Zero asset dependency)
+      class SoundController {
+        constructor() {
+          this.ctx = null;
+          this.enabled = true;
+        }
+        init() {
+          if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
+            const AC = window.AudioContext || window.webkitAudioContext;
+            this.ctx = new AC();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        }
+        playPop(step) {
+          if (!this.enabled) return;
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const scale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25];
+          const freq = scale[step % scale.length];
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.3, this.ctx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.1);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.1);
+        }
+        playSuccess() {
+          if (!this.enabled) return;
+          this.init();
+          if (!this.ctx) return;
+          [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+            const now = this.ctx.currentTime + idx * 0.08;
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.3);
+          });
+        }
+        speak(text) {
+          if (!this.enabled || !('speechSynthesis' in window)) return;
+          window.speechSynthesis.cancel();
+          const u = new SpeechSynthesisUtterance(text);
+          u.rate = 0.85;
+          u.pitch = 1.15;
+          window.speechSynthesis.speak(u);
+        }
+      }
+
+      const sounds = new SoundController();
+
+      // State
+      let settings = {
+        upperLimit: 10,
+        lowerLimit: 1,
+        stackSize: 10,
+        intervalSeconds: 3,
+        soundEnabled: true,
+      };
+
+      try {
+        const saved = localStorage.getItem('star_settings');
+        if (saved) settings = JSON.parse(saved);
+      } catch (e) {}
+
+      let totalStars = 0;
+      try {
+        totalStars = parseInt(localStorage.getItem('star_count') || '0', 10);
+      } catch (e) {}
+
+      let cardStack = [];
+      let currentIndex = 0;
+      let isShowingDots = false;
+      let countedDots = new Set();
+      let timerId = null;
+      let timeLeft = 3;
+
+      // 20% Upper Range Stack Generator
+      function generateStack() {
+        const span = Math.max(1, settings.upperLimit - settings.lowerLimit + 1);
+        const upperTierCount = Math.max(1, Math.round(span * 0.25));
+        const upperRangeStart = Math.max(settings.lowerLimit + 1, settings.upperLimit - upperTierCount + 1);
+
+        const upperCount = Math.max(1, Math.round(settings.stackSize * 0.20));
+        const foundationCount = Math.max(0, settings.stackSize - upperCount);
+
+        const foundationPool = [];
+        for (let i = settings.lowerLimit; i < upperRangeStart; i++) foundationPool.push(i);
+
+        const upperPool = [];
+        for (let i = upperRangeStart; i <= settings.upperLimit; i++) upperPool.push(i);
+
+        const cards = [];
+        for (let i = 0; i < upperCount; i++) {
+          cards.push({
+            number: upperPool[Math.floor(Math.random() * upperPool.length)],
+            isUpperRange: true
+          });
+        }
+        for (let i = 0; i < foundationCount; i++) {
+          const pool = foundationPool.length ? foundationPool : upperPool;
+          cards.push({
+            number: pool[Math.floor(Math.random() * pool.length)],
+            isUpperRange: false
+          });
+        }
+
+        // Fisher-Yates shuffle
+        for (let i = cards.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [cards[i], cards[j]] = [cards[j], cards[i]];
+        }
+
+        cardStack = cards;
+        currentIndex = 0;
+      }
+
+      function renderCard() {
+        if (timerId) clearInterval(timerId);
+        const card = cardStack[currentIndex];
+        if (!card) return;
+
+        document.getElementById('headerRange').textContent = `${settings.lowerLimit} – ${settings.upperLimit}`;
+        document.getElementById('starCount').textContent = totalStars;
+        document.getElementById('cardCounter').textContent = `Card ${currentIndex + 1} of ${cardStack.length}`;
+        document.getElementById('starChallengeTag').style.display = card.isUpperRange ? 'inline-block' : 'none';
+
+        const cardBox = document.getElementById('cardBox');
+
+        if (!isShowingDots) {
+          // Number Interval View
+          timeLeft = settings.intervalSeconds;
+          cardBox.innerHTML = `
+            <h2 style="font-size: 24px; font-weight: 800; color: #451A03;">What number is this?</h2>
+            <div class="numeral-circle">
+              <div class="numeral-inner">${card.number}</div>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 100%;"></div>
+              </div>
+              <div class="progress-text" id="progressText">Showing dots in ${timeLeft}s</div>
+            </div>
+            <button class="btn btn-reveal" id="revealBtn">I Know It! Show Dots 👉</button>
+          `;
+
+          document.getElementById('revealBtn').onclick = revealDots;
+
+          if (settings.intervalSeconds > 0) {
+            let elapsed = 0;
+            const step = 100;
+            const total = settings.intervalSeconds * 1000;
+            timerId = setInterval(() => {
+              elapsed += step;
+              const remaining = Math.max(0, (total - elapsed) / 1000);
+              const percent = (remaining / settings.intervalSeconds) * 100;
+              const fill = document.getElementById('progressFill');
+              const text = document.getElementById('progressText');
+              if (fill) fill.style.width = percent + '%';
+              if (text) text.textContent = `Showing dots in ${remaining.toFixed(1)}s`;
+              if (elapsed >= total) {
+                clearInterval(timerId);
+                revealDots();
+              }
+            }, step);
+          }
+        } else {
+          // Dots Revealed (Ten-Frame) View
+          countedDots = new Set();
+          const frameCount = Math.max(1, Math.ceil(card.number / 10));
+
+          let framesHtml = '';
+          for (let f = 0; f < frameCount; f++) {
+            const start = f * 10;
+            let cellsHtml = '';
+            for (let c = 0; c < 10; c++) {
+              const dotNum = start + c + 1;
+              const hasDot = dotNum <= card.number;
+              cellsHtml += `
+                <div class="ten-frame-cell ${hasDot ? 'has-dot' : ''}" data-dot="${dotNum}">
+                  ${hasDot ? '⭐' : ''}
+                </div>
+              `;
+            }
+            framesHtml += `<div class="ten-frame-grid">${cellsHtml}</div>`;
+          }
+
+          cardBox.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 2px solid #FEF3C7; padding-bottom: 8px;">
+              <div style="background: #F59E0B; color: white; padding: 6px 14px; border-radius: 12px; font-weight: 800; font-size: 20px;">
+                ${card.number}
+              </div>
+              <span style="font-weight: 800; color: #78350F; font-size: 15px;">Touch dots to count!</span>
+              <button class="btn btn-secondary" id="speakBtn" style="padding: 6px 10px;">🔊</button>
+            </div>
+
+            <div style="margin: 12px 0; width: 100%; display: flex; flex-direction: column; align-items: center;">
+              ${framesHtml}
+              <div style="font-weight: 800; color: #047857; margin-top: 8px;" id="countTrack">
+                Counted: 0 / ${card.number}
+              </div>
+            </div>
+
+            <button class="btn btn-success" id="matchBtn">It Matches! Next Card ⭐</button>
+          `;
+
+          document.getElementById('speakBtn').onclick = () => sounds.speak(String(card.number));
+          document.getElementById('matchBtn').onclick = advanceCard;
+
+          // Wire dot clicks
+          const cells = cardBox.querySelectorAll('.ten-frame-cell.has-dot');
+          cells.forEach((cell) => {
+            cell.onclick = () => {
+              const dotNum = parseInt(cell.getAttribute('data-dot'), 10);
+              countedDots.add(dotNum);
+              cell.classList.add('counted');
+              cell.innerHTML = `⭐<div class="count-badge">${dotNum}</div>`;
+              sounds.playPop(dotNum);
+              sounds.speak(String(dotNum));
+              document.getElementById('countTrack').textContent = `Counted: ${countedDots.size} / ${card.number}`;
+            };
+          });
+        }
+      }
+
+      function revealDots() {
+        if (timerId) clearInterval(timerId);
+        isShowingDots = true;
+        renderCard();
+        sounds.playSuccess();
+        sounds.speak(String(cardStack[currentIndex].number));
+      }
+
+      function advanceCard() {
+        totalStars += 1;
+        try { localStorage.setItem('star_count', totalStars); } catch (e) {}
+
+        if (currentIndex + 1 < cardStack.length) {
+          currentIndex += 1;
+          isShowingDots = false;
+          renderCard();
+        } else {
+          // Finished stack
+          try {
+            confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+          } catch (e) {}
+          document.getElementById('celebSummary').textContent = `You matched all ${cardStack.length} cards!`;
+          document.getElementById('celebrationModal').classList.add('active');
+        }
+      }
+
+      // Play Again
+      document.getElementById('playAgainBtn').onclick = () => {
+        document.getElementById('celebrationModal').classList.remove('active');
+        isShowingDots = false;
+        generateStack();
+        renderCard();
+      };
+
+      // Sound button
+      const soundBtn = document.getElementById('soundBtn');
+      soundBtn.onclick = () => {
+        sounds.enabled = !sounds.enabled;
+        soundBtn.textContent = sounds.enabled ? '🔊' : '🔇';
+      };
+
+      // Parent Zone Modal handlers
+      const parentModal = document.getElementById('parentModal');
+      document.getElementById('parentBtn').onclick = () => parentModal.classList.add('active');
+      document.getElementById('closeParentModal').onclick = () => parentModal.classList.remove('active');
+
+      const upperSlider = document.getElementById('upperSlider');
+      const upperLabel = document.getElementById('upperLabel');
+      upperSlider.oninput = () => {
+        upperLabel.textContent = upperSlider.value;
+        updateBreakdown();
+      };
+
+      let draftStack = settings.stackSize;
+      let draftInterval = settings.intervalSeconds;
+
+      document.querySelectorAll('#stackChips .chip').forEach(chip => {
+        chip.onclick = () => {
+          document.querySelectorAll('#stackChips .chip').forEach(c => c.classList.remove('selected'));
+          chip.classList.add('selected');
+          draftStack = parseInt(chip.dataset.val, 10);
+          updateBreakdown();
+        };
+      });
+
+      document.querySelectorAll('#intervalChips .chip').forEach(chip => {
+        chip.onclick = () => {
+          document.querySelectorAll('#intervalChips .chip').forEach(c => c.classList.remove('selected'));
+          chip.classList.add('selected');
+          draftInterval = parseInt(chip.dataset.val, 10);
+        };
+      });
+
+      function updateBreakdown() {
+        const u = parseInt(upperSlider.value, 10);
+        const upperCount = Math.max(1, Math.round(draftStack * 0.2));
+        const foundationCount = Math.max(0, draftStack - upperCount);
+        const span = Math.max(1, u - 1 + 1);
+        const tier = Math.max(1, Math.round(span * 0.25));
+        const start = Math.max(2, u - tier + 1);
+        document.getElementById('breakdownInfo').innerHTML = `
+          <strong>Stack Challenge Breakdown:</strong><br>
+          • ${foundationCount} cards (80%) Foundation Range (1 – ${Math.max(1, start - 1)})<br>
+          • ${upperCount} cards (20%) Upper Range (${start} – ${u})<br>
+          All cards are shuffled & randomised every round!
+        `;
+      }
+
+      document.getElementById('saveSettingsBtn').onclick = () => {
+        settings.upperLimit = parseInt(upperSlider.value, 10);
+        settings.stackSize = draftStack;
+        settings.intervalSeconds = draftInterval;
+        try { localStorage.setItem('star_settings', JSON.stringify(settings)); } catch (e) {}
+        parentModal.classList.remove('active');
+        isShowingDots = false;
+        generateStack();
+        renderCard();
+      };
+
+      // Initial Launch
+      generateStack();
+      renderCard();
+    </script>
+  </body>
+</html>
