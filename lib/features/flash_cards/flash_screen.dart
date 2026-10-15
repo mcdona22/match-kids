@@ -28,17 +28,17 @@ class FlashCardsScreen extends HookConsumerWidget {
       return () => confettiController.dispose();
     }, [confettiController]);
 
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFFEF3C7),
+      // backgroundColor: const Color(0xFFFEF3C7),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
+        // backgroundColor: Colors.white,
+        elevation: 50,
         title: Text(
           'Number Cards (1–${settings.upperLimit})',
-          style: const TextStyle(
-              fontWeight: FontWeight.w900,
-              color: Color(0xFF78350F),
-              fontSize: 18),
+          style: textTheme.titleLarge,
         ),
         actions: [
           const ToggleThemModeButton(),
@@ -46,20 +46,24 @@ class FlashCardsScreen extends HookConsumerWidget {
             margin: const EdgeInsets.symmetric(vertical: 8),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.amber.shade100,
+              // color: Colors.amber.shade100,
+              color: colorScheme.secondaryContainer,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
+              spacing: 18.0,
               children: [
-                const Icon(Icons.star, color: Colors.amber, size: 18),
-                const SizedBox(width: 4),
-                Text('${gameState.totalStars}',
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                Icon(Icons.star, color: colorScheme.primary, size: 18),
+                Text('${gameState.totalStars}', style: textTheme.titleMedium),
               ],
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.tune, color: Color(0xFF78350F)),
+            icon: Icon(
+              Icons.menu,
+              color: colorScheme.primary,
+            ),
+            // icon: const Icon(Icons.tune, color: Color(0xFF78350F)),
             tooltip: 'Parent Zone',
             onPressed: () => _openParentZone(context),
           ),
@@ -90,13 +94,13 @@ class FlashCardsScreen extends HookConsumerWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 6),
                           decoration: BoxDecoration(
-                            color: Colors.amber.shade600,
+                            color: colorScheme.surface,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: const Text(
                             '⭐ Star Challenge! (Upper 20%)',
                             style: TextStyle(
-                                color: Colors.white,
+                                // color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 13),
                           ),
@@ -107,8 +111,8 @@ class FlashCardsScreen extends HookConsumerWidget {
                         elevation: 8,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32),
-                          side: BorderSide(
-                              color: Colors.amber.shade300, width: 4),
+                          side:
+                              BorderSide(color: colorScheme.primary, width: 4),
                         ),
                         child: Container(
                           width: double.infinity,
@@ -139,9 +143,9 @@ class FlashCardsScreen extends HookConsumerWidget {
                       const SizedBox(height: 16),
                       Text(
                         'Card ${gameState.currentIndex + 1} of ${gameState.cardStack.length}',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF78350F)),
+                            color: colorScheme.secondary),
                       ),
                     ],
                   ),
@@ -154,7 +158,7 @@ class FlashCardsScreen extends HookConsumerWidget {
               confettiController: confettiController,
               blastDirectionality: BlastDirectionality.explosive,
               shouldLoop: false,
-              numberOfParticles: 500,
+              numberOfParticles: 50,
             ),
           ),
         ],

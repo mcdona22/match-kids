@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'core/routing/router.dart';
+import 'core/theme/themes.dart';
 import 'features/user/user_preferences_notifier.dart';
 
 class App extends HookConsumerWidget {
@@ -12,13 +13,15 @@ class App extends HookConsumerWidget {
     return MaterialApp.router(
       title: 'Little Star Number Flash Cards',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFF59E0B),
-          brightness: Brightness.light,
-        ),
-      ),
+      // theme: ThemeData(
+      //   useMaterial3: true,
+      //   colorScheme: ColorScheme.fromSeed(
+      //     seedColor: const Color(0xFFF59E0B),
+      //     brightness: Brightness.light,
+      //   ),
+      // ),
+      theme: ThemeData.from(colorScheme: lightColorScheme),
+      darkTheme: ThemeData.from(colorScheme: darkColorScheme),
       themeMode: ref.watch(userPreferencesProvider).useDarkMode
           ? ThemeMode.dark
           : ThemeMode.light,
