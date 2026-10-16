@@ -4,7 +4,8 @@ import 'package:little_star_flashcards/features/user/user_preferences_notifier.d
 import 'package:loggy/loggy.dart';
 
 class ToggleThemModeButton extends HookConsumerWidget with UiLoggy {
-  const ToggleThemModeButton({super.key});
+  const ToggleThemModeButton({this.iconSize = 16.0, super.key});
+  final double? iconSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
