@@ -12,7 +12,7 @@ class App extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       title: 'Little Star Number Flash Cards',
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       // theme: ThemeData(
       //   useMaterial3: true,
       //   colorScheme: ColorScheme.fromSeed(
