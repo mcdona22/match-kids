@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/routing/router.dart';
 import 'package:little_star_flashcards/core/theme/toggle_theme_mode_button.dart';
+import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/providers/game_provider.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -20,9 +21,10 @@ class HomeScreen extends HookConsumerWidget {
         elevation: 0,
         scrolledUnderElevation: 2,
         title: Row(
+          spacing: UiDimensions.md,
           children: [
             Container(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(UiDimensions.sm),
               decoration: BoxDecoration(
                 color: colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(12),
@@ -33,7 +35,6 @@ class HomeScreen extends HookConsumerWidget {
                 size: 22,
               ),
             ),
-            const SizedBox(width: 12),
             Text(
               'Little Star',
               style: textTheme.titleLarge?.copyWith(
@@ -52,13 +53,13 @@ class HomeScreen extends HookConsumerWidget {
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
+              spacing: UiDimensions.xs,
               children: [
                 Icon(
                   Icons.star_rounded,
                   color: colorScheme.primary,
                   size: 20,
                 ),
-                const SizedBox(width: 6),
                 Text(
                   '$totalStars',
                   style: textTheme.titleMedium?.copyWith(
@@ -69,9 +70,9 @@ class HomeScreen extends HookConsumerWidget {
               ],
             ),
           ),
-          const SizedBox(width: 4),
+          const SizedBox(width: UiDimensions.xxs),
           const ToggleThemModeButton(iconSize: 24),
-          const SizedBox(width: 8),
+          const SizedBox(width: UiDimensions.sm),
         ],
       ),
       body: SafeArea(
@@ -83,7 +84,7 @@ class HomeScreen extends HookConsumerWidget {
               children: [
                 // Hero Header Banner
                 Container(
-                  padding: const EdgeInsets.all(24),
+                  padding: const EdgeInsets.all(UiDimensions.xxl),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -103,6 +104,7 @@ class HomeScreen extends HookConsumerWidget {
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: UiDimensions.sm,
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -122,7 +124,6 @@ class HomeScreen extends HookConsumerWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 10),
                             Text(
                               'Ready to Learn & Play?',
                               style: textTheme.headlineSmall?.copyWith(
@@ -130,7 +131,6 @@ class HomeScreen extends HookConsumerWidget {
                                 color: colorScheme.onPrimaryContainer,
                               ),
                             ),
-                            const SizedBox(height: 6),
                             Text(
                               'Choose an activity below to explore numbers, count interactive dots, and collect shiny stars!',
                               style: textTheme.bodyMedium?.copyWith(
@@ -140,7 +140,7 @@ class HomeScreen extends HookConsumerWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: UiDimensions.lg),
                       Container(
                         width: 72,
                         height: 72,
@@ -166,7 +166,7 @@ class HomeScreen extends HookConsumerWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(height: UiDimensions.xxl),
 
                 // Section Label
                 Row(
@@ -187,7 +187,7 @@ class HomeScreen extends HookConsumerWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: UiDimensions.lg),
 
                 // Action 1: Number Flashcards (Active Feature)
                 _ActivityCard(
@@ -210,30 +210,28 @@ class HomeScreen extends HookConsumerWidget {
                     'Ten-Frame Grid'
                   ],
                 ),
-                const SizedBox(height: 18),
-
+                const SizedBox(height: UiDimensions.xl),
+ 
                 // Action 2: Pattern & Shape Safari (Stub Feature)
                 _ActivityCard(
-                  title: 'Olivia Spelling Ting',
+                  title: 'Olivia Spelling...',
                   subtitle: 'Working with a list of word challenges show, hide '
                       'and read each word to practice for spelling tests',
-                  badgeText: 'Coming Soon',
-                  badgeColor: colorScheme.surfaceContainerHighest,
-                  badgeTextColor: colorScheme.onSurfaceVariant,
+                  badgeText: 'New',
+                  badgeColor: colorScheme.secondaryContainer,
+                  badgeTextColor: colorScheme.onSecondaryContainer,
                   icon: Icons.category_outlined,
-                  iconBackgroundColor: colorScheme.surfaceContainerHighest,
-                  iconColor:
-                      colorScheme.onSurfaceVariant.withValues(alpha: 0.8),
-                  buttonLabel: 'Coming Soon',
-                  buttonIcon: Icons.lock_outline_rounded,
-                  // Stub feature as specified: onPressed parameter set to null
-                  onPressed: null,
+                  iconBackgroundColor: colorScheme.secondaryContainer,
+                  iconColor: colorScheme.onSecondaryContainer,
+                  buttonLabel: 'Open Spelling Test',
+                  buttonIcon: Icons.play_arrow_rounded,
+                  onPressed: () => context.pushNamed(AppRoute.spellingTest.name),
                   tags: const [
                     'Spelling',
                     'Practice, hide, check',
                   ],
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: UiDimensions.xxxl),
               ],
             ),
           ),
@@ -314,7 +312,7 @@ class _ActivityCard extends StatelessWidget {
                     ),
                     child: Icon(icon, color: iconColor, size: 30),
                   ),
-                  const SizedBox(width: 14),
+                  const SizedBox(width: UiDimensions.lg),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -340,7 +338,6 @@ class _ActivityCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 6),
                         Text(
                           title,
                           style: textTheme.titleLarge?.copyWith(
@@ -355,8 +352,8 @@ class _ActivityCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
-
+              const SizedBox(height: UiDimensions.md),
+ 
               // Description
               Text(
                 subtitle,
@@ -367,8 +364,8 @@ class _ActivityCard extends StatelessWidget {
                   height: 1.4,
                 ),
               ),
-              const SizedBox(height: 14),
-
+              const SizedBox(height: UiDimensions.lg),
+ 
               // Tags
               Wrap(
                 spacing: 8,
@@ -400,8 +397,8 @@ class _ActivityCard extends StatelessWidget {
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 18),
-
+              const SizedBox(height: UiDimensions.xl),
+ 
               // Action Button (with null onPressed for stub)
               SizedBox(
                 width: double.infinity,
