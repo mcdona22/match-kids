@@ -7,7 +7,8 @@ part 'tts_provider.g.dart';
 FlutterTts tts(Ref ref) {
   final tts = FlutterTts();
   tts.setLanguage("en-GB");
-  tts.setSpeechRate(0.6);
+  tts.setSpeechRate(0.4);
   tts.setPitch(1.15);
+  tts.setVoice(voice)
   return tts;
 }
