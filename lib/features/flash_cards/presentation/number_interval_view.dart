@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../models/flash_card.dart';
+import '../../../models/flash_card.dart';
 
 class NumberIntervalView extends HookConsumerWidget {
   final FlashCardItem card;

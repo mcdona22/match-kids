@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/theme/toggle_theme_mode_button.dart';
+import 'package:little_star_flashcards/features/flash_cards/presentation/dots_revealed_view.dart';
+import 'package:little_star_flashcards/features/flash_cards/presentation/number_interval_view.dart';
 import 'package:little_star_flashcards/providers/game_provider.dart';
 import 'package:little_star_flashcards/providers/settings_provider.dart';
 import 'package:little_star_flashcards/widgets/celebration_dialog.dart';
-import 'package:little_star_flashcards/widgets/dots_revealed_view.dart';
-import 'package:little_star_flashcards/widgets/number_interval_view.dart';
 import 'package:little_star_flashcards/widgets/parent_zone_modal.dart';
 
 class FlashCardsScreen extends HookConsumerWidget {
@@ -71,6 +71,15 @@ class FlashCardsScreen extends HookConsumerWidget {
       ),
       body: Stack(
         children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: false,
+              numberOfParticles: 50,
+            ),
+          ),
           // Align(
           //   alignment: Alignment.topCenter,
           //   child: ConfettiWidget(
@@ -143,24 +152,16 @@ class FlashCardsScreen extends HookConsumerWidget {
                       const SizedBox(height: 16),
                       Text(
                         'Card ${gameState.currentIndex + 1} of ${gameState.cardStack.length}',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: colorScheme.secondary),
+                        style: textTheme.titleMedium,
+                        // style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //     color: colorScheme.secondary),
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: ConfettiWidget(
-              confettiController: confettiController,
-              blastDirectionality: BlastDirectionality.explosive,
-              shouldLoop: false,
-              numberOfParticles: 50,
-            ),
-          ),
         ],
       ),
     );
