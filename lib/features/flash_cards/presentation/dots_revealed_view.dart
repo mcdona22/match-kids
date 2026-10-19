@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/application/tts_provider.dart';
 
 import '../../../models/flash_card.dart';
-import '../../../providers/tts_provider.dart';
 import '../../../widgets/ten_frame_widget.dart';
 
 class DotsRevealedView extends HookConsumerWidget {
