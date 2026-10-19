@@ -6,7 +6,7 @@ part 'tts_provider.g.dart';
 @riverpod
 FlutterTts tts(Ref ref) {
   final tts = FlutterTts();
-  tts.setLanguage("en-US");
+  tts.setLanguage("en-GB");
   tts.setSpeechRate(0.5);
   tts.setPitch(1.15);
   return tts;
