@@ -180,7 +180,7 @@ class HomeScreen extends HookConsumerWidget {
                       ),
                       const Spacer(),
                       Text(
-                        '2 Active • 1 Coming Soon',
+                        '1 Active • 1 Coming Soon',
                         style: textTheme.labelSmall?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
@@ -188,29 +188,9 @@ class HomeScreen extends HookConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  _ActivityCard(
-                    title: 'Eliza Number Fluency',
-                    subtitle:
-                        'Flash cards with timed reveals, interactive ten-frame dot counting, audio narration, and rewards.',
-                    badgeText: 'Active • Montessori',
-                    badgeColor: colorScheme.primary,
-                    badgeTextColor: colorScheme.onPrimary,
-                    icon: Icons.pin_outlined,
-                    iconBackgroundColor: colorScheme.primaryContainer,
-                    iconColor: colorScheme.onPrimaryContainer,
-                    buttonLabel: 'Play Number Cards',
-                    buttonIcon: Icons.play_arrow_rounded,
-                    onPressed: () =>
-                        context.pushNamed(AppRoute.numberRecognition.name),
-                    tags: const [
-                      '1 to 10+ Range',
-                      'Touch to Count',
-                      'Ten-Frame Grid',
-                    ],
-                  ),
                   const SizedBox(height: 18),
                   _ActivityCard(
-                    title: 'Number Flash Card',
+                    title: 'Eliza Number Flash Card',
                     subtitle:
                         'A simple number recognition challenge with a countdown, answer reveal, and speaking practice.',
                     badgeText: 'New',

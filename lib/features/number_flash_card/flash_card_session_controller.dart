@@ -22,6 +22,9 @@ class FlashCardSessionController extends _$FlashCardSessionController
     return state.cardValues[state.currentIndex];
   }
 
+  void markAnswerCorrect() => state = state.copyWith(
+      correctAnswersInSession: state.correctAnswersInSession + 1);
+
   void nextCard() {
     final nextIndex = state.currentIndex + 1;
     if (nextIndex >= state.cardValues.length) {

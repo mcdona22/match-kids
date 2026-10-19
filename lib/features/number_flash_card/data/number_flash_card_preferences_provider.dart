@@ -39,19 +39,6 @@ class NumberFlashCardPreferencesController
     ));
   }
 
-  void recordResult({required bool isCorrect}) {
-    final next = state.copyWith(
-      correct: isCorrect ? state.correct + 1 : state.correct,
-      incorrect: isCorrect ? state.incorrect : state.incorrect + 1,
-    );
-    _persist(next);
-  }
-
-  void resetScores() {
-    const next = NumberFlashCardPreferences();
-    _persist(next);
-  }
-
   void _persist(NumberFlashCardPreferences preferences,
       {bool assignState = true}) {
     if (assignState) {
