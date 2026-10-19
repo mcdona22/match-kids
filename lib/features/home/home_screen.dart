@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/routing/router.dart';
 import 'package:little_star_flashcards/core/theme/toggle_theme_mode_button.dart';
+import 'package:little_star_flashcards/core/ui/screen_names.dart';
 import 'package:little_star_flashcards/providers/game_provider.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -190,7 +191,7 @@ class HomeScreen extends HookConsumerWidget {
                   const SizedBox(height: 16),
                   const SizedBox(height: 18),
                   _ActivityCard(
-                    title: 'Eliza Number Flash Card',
+                    title: flashCardScreenTitle,
                     subtitle:
                         'A simple number recognition challenge with a countdown, answer reveal, and speaking practice.',
                     badgeText: 'New',
@@ -211,7 +212,7 @@ class HomeScreen extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 18),
                   _ActivityCard(
-                    title: 'Olivia Spelling...',
+                    title: spellingScreenTitle,
                     subtitle:
                         'Practice a word list, hide the words, read them aloud, '
                         'and review the spelling challenge.',

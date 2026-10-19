@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/application/tts_provider.dart';
+import 'package:little_star_flashcards/core/ui/screen_names.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/spelling_test/spelling_words_provider.dart';
 
@@ -77,7 +78,7 @@ class SpellingTestScreen extends HookConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Spelling Test')),
+      appBar: AppBar(title: const Text(spellingScreenTitle)),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(UiDimensions.lg),
@@ -237,7 +238,7 @@ class _PracticeCard extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(UiDimensions.xl),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primaryContainer,
+                color: theme.colorScheme.tertiaryContainer,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(

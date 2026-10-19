@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/application/tts_provider.dart';
+import 'package:little_star_flashcards/core/ui/screen_names.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/number_flash_card/data/number_flash_card_preferences_provider.dart';
 import 'package:little_star_flashcards/features/number_flash_card/flash_card_session_controller.dart';
@@ -83,7 +84,7 @@ class NumberFlashCardScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Eliza Number Flash Card'),
+        title: const Text(flashCardScreenTitle),
         // actions: [
         //   Padding(
         //     padding: const EdgeInsets.symmetric(horizontal: UiDimensions.md),
