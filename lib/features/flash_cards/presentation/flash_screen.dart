@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/theme/toggle_theme_mode_button.dart';
+import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/flash_cards/presentation/dots_revealed_view.dart';
 import 'package:little_star_flashcards/features/flash_cards/presentation/number_interval_view.dart';
 import 'package:little_star_flashcards/providers/game_provider.dart';
@@ -99,7 +100,7 @@ class FlashCardsScreen extends HookConsumerWidget {
                     children: [
                       if (currentCard.isUpperRange)
                         Container(
-                          margin: const EdgeInsets.only(bottom: 12),
+                          margin: const EdgeInsets.only(bottom: UiDimensions.md),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 6),
                           decoration: BoxDecoration(
@@ -149,7 +150,6 @@ class FlashCardsScreen extends HookConsumerWidget {
                                 ),
                         ),
                       ),
-                      const SizedBox(height: 16),
                       Text(
                         'Card ${gameState.currentIndex + 1} of ${gameState.cardStack.length}',
                         style: textTheme.titleMedium,

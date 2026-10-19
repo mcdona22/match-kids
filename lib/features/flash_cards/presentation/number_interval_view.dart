@@ -4,9 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 
 import '../../../models/flash_card.dart';
-
 class NumberIntervalView extends HookConsumerWidget {
   final FlashCardItem card;
   final int intervalSeconds;
@@ -49,11 +49,11 @@ class NumberIntervalView extends HookConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      spacing: UiDimensions.xxl,
       children: [
         Text('What number is this?', style: textTheme.displaySmall
             // style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF451A03)),
             ),
-        const SizedBox(height: 24),
         Container(
           width: 200,
           height: 200,
@@ -95,9 +95,9 @@ class NumberIntervalView extends HookConsumerWidget {
             ),
           ),
         ),
-        const SizedBox(height: 24),
         if (intervalSeconds > 0)
           Column(
+            spacing: UiDimensions.xs,
             children: [
               LinearProgressIndicator(
                 value: progress,
@@ -106,14 +106,12 @@ class NumberIntervalView extends HookConsumerWidget {
                 minHeight: 10,
                 borderRadius: BorderRadius.circular(8),
               ),
-              const SizedBox(height: 6),
               Text(
                 'Showing dots in ${secondsRemaining.value.toStringAsFixed(1)}s',
                 style: textTheme.titleMedium,
               ),
             ],
           ),
-        const SizedBox(height: 16),
         SizedBox(
           width: double.infinity,
           child: ElevatedButton.icon(

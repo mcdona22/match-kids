@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
+
 import '../providers/game_provider.dart';
 
 class CelebrationDialog extends HookConsumerWidget {
@@ -21,11 +23,10 @@ class CelebrationDialog extends HookConsumerWidget {
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        spacing: UiDimensions.md,
         children: [
           const Icon(Icons.emoji_events, size: 72, color: Colors.amber),
-          const SizedBox(height: 12),
           Text('You matched all $cardCount cards!', style: const TextStyle(fontSize: 16)),
-          const SizedBox(height: 8),
           Text(
             '⭐ +$cardCount Stars Awarded!',
             style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.amber),

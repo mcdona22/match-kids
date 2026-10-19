@@ -64,3 +64,26 @@ lib/
 * Use `@freezed` or immutable classes with `copyWith` patterns for domain
   models.
 * Keep functions concise, self-documenting, and strongly typed.
+
+## General implementation notes
+
+* Dont use stateful widgets, instead use HookConsumerWidgets with hooks
+  and/or signals
+* use composition aggressively and decompose widgets to support this. It is
+  oK to use private classes as widgets that are entirely local but the
+  source file should not be permitted to get too large in this regardless of
+  the merits of class privacy
+* use enumerations generously and constructors that permit useful attributes
+  such as human readable labels for the same
+
+## Component & Architecture Design Principles
+
+* **Prefer Composition over Monoliths:** Break down complex screens into small,
+  private or feature-level sub-widgets. No single build method should exceed 50
+  lines of code.
+* **Single Responsibility per File:** Keep domain models, Riverpod controllers,
+  and UI components in separate files following the feature-first folder layout.
+* **Extracted Widgets over Helper Methods:** Never create
+  `Widget _buildSection()` helper methods inside a widget class. Extract them
+  into standalone `const StatelessWidget` or `ConsumerWidget` classes to allow
+  Flutter's element tree to optimize rebuilds.
