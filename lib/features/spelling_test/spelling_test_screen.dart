@@ -298,7 +298,9 @@ class _ReviewWordsCard extends StatelessWidget {
               runSpacing: UiDimensions.xs,
               children: words
                   .map(
-                    (word) => Chip(label: Text(word)),
+                    (word) => Chip(
+                        label: Text(word,
+                            style: Theme.of(context).textTheme.titleMedium)),
                   )
                   .toList(),
             ),
