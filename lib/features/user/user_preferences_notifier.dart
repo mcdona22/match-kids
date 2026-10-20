@@ -14,7 +14,7 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier with UiLoggy {
   @override
   UserPreferences build() {
     loggy.info('creating the user preference object');
-    final defaultPreferences = UserPreferences(useDarkMode: true);
+    const defaultPreferences = UserPreferences(useDarkMode: true);
     final prefs = ref.read(sharedPreferencesProvider);
     final rawJson = prefs.getString(_key);
 

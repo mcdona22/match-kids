@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:little_star_flashcards/features/spelling_test/spelling_test_session.dart';
 import 'package:little_star_flashcards/providers/shared_preferences_provider.dart';
 import 'package:loggy/loggy.dart';
@@ -7,47 +9,76 @@ part 'spelling_words_provider.g.dart';
 
 @Riverpod(keepAlive: false)
 class SpellingWords extends _$SpellingWords with UiLoggy {
-  static const _key = 'little_star_flashcards.spelling_words';
+  static const _key = 'little_star_flashcards.spelling_session';
 
   @override
   SpellingTestSession build() {
+    ref.onDispose(() => loggy.debug('disposing SpellingWords session '
+        'provider'));
+    const defaultPreferences = SpellingTestSession();
     final prefs = ref.read(sharedPreferencesProvider);
-    ref.onDispose(() => loggy.debug('disposing SpellingWords provider'));
 
-    final savedWords = prefs.getStringList(_key);
-
-    if (savedWords == null) {
-      loggy.debug('saving empty list as default');
-      ref.read(sharedPreferencesProvider).setStringList(_key, []);
+    final rawJson = prefs.getString(_key);
+    loggy.debug('raw json is $rawJson');
+    if (rawJson != null && rawJson.isNotEmpty) {
+      loggy.debug('preferences found - $rawJson');
+      try {
+        return SpellingTestSession.fromJson(jsonDecode(rawJson));
+      } catch (e) {
+        loggy.warning(
+            'Something wrong fetching preferences - returning defaults');
+        _writePreferences(session: defaultPreferences);
+        return defaultPreferences;
+      }
+    } else {
+      loggy.debug('Preferences not found - using defaults');
+      _writePreferences(session: defaultPreferences);
+      return defaultPreferences;
     }
+  }
 
-    final normalized = _normalizeWords(savedWords!);
-    final session = SpellingTestSession(words: normalized);
-    loggy.debug('Initial session: $session');
-    return session;
+  void resetSession() {
+    state = const SpellingTestSession();
+    _writePreferences();
   }
 
   void saveWords(List<String> words) {
     final normalized = _normalizeWords(words);
     state = state.copyWith(words: normalized);
     loggy.debug('saving the words $words');
-    ref.read(sharedPreferencesProvider).setStringList(_key, normalized);
+    _writePreferences();
   }
 
   void addWord(String wordToAdd) {
     final word = wordToAdd.toLowerCase().trim();
     if (wordToAdd.isNotEmpty) {
       state = state.copyWith(words: [...state.words, word]);
-      _save(state.words);
+      _writePreferences();
     }
   }
 
   void removeWord(String word) {
-    final updated = state.words.where((w) => w != word).toList();
+    final updatedWords = state.words.where((w) => w != word).toList();
+    final updatedSelections =
+        state.selectedWords.where((w) => w != word).toList();
 
-    state = state.copyWith(words: updated);
+    state =
+        state.copyWith(words: updatedWords, selectedWords: updatedSelections);
     loggy.debug('removing "$word" words now $state');
+    _writePreferences();
   }
+
+  void toggleSelectionStatus(String word) {
+    final isSelected = state.selectedWords.contains(word);
+    final updatedSelected = isSelected
+        ? state.selectedWords.where((found) => found != word).toList()
+        : [...state.selectedWords, word];
+
+    state = state.copyWith(selectedWords: updatedSelected);
+    _writePreferences();
+  }
+
+  bool isSelected(String word) => state.selectedWords.contains(word);
 
   List<String> _normalizeWords(List<String> words) {
     final normalized = <String>[];
@@ -63,11 +94,9 @@ class SpellingWords extends _$SpellingWords with UiLoggy {
     return normalized;
   }
 
-  void _save(List<String> words) {
-    final normalized = _normalizeWords(words);
-    state = state.copyWith(words: normalized);
-
-    loggy.debug('Saving words list: $state');
-    ref.read(sharedPreferencesProvider).setStringList(_key, normalized);
+  void _writePreferences({SpellingTestSession? session}) {
+    loggy.debug('persisting session preferences : ${session ?? state}');
+    final prefs = ref.read(sharedPreferencesProvider);
+    prefs.setString(_key, jsonEncode((session ?? state).toJson()));
   }
 }

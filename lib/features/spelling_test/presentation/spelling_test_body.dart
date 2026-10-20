@@ -62,7 +62,7 @@ class SpellingTestBody extends StatelessWidget {
             const SpellingWordEditorCard(),
           ],
           const SizedBox(height: UiDimensions.lg),
-          const PracticeView(),
+          // const PracticeView(),
           SpellingPracticeCard(
             sessionWords: sessionWords,
             hideWords: hideWords,

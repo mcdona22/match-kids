@@ -50,6 +50,10 @@ class SpellingWordEditorCard extends HookConsumerWidget {
                   icon: const Icon(Icons.add),
                   label: const Text('Add'),
                 ),
+                ElevatedButton(
+                    onPressed:
+                        ref.read(spellingWordsProvider.notifier).resetSession,
+                    child: const Text('Clear All'))
               ],
             ),
             if (words.isEmpty)
