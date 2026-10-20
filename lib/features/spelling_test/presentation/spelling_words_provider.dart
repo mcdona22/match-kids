@@ -1,3 +1,4 @@
+import 'package:little_star_flashcards/features/spelling_test/spelling_test_session.dart';
 import 'package:little_star_flashcards/providers/shared_preferences_provider.dart';
 import 'package:loggy/loggy.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,7 +10,7 @@ class SpellingWords extends _$SpellingWords with UiLoggy {
   static const _key = 'little_star_flashcards.spelling_words';
 
   @override
-  List<String> build() {
+  SpellingTestSession build() {
     final prefs = ref.read(sharedPreferencesProvider);
     ref.onDispose(() => loggy.debug('disposing SpellingWords provider'));
 
@@ -21,12 +22,14 @@ class SpellingWords extends _$SpellingWords with UiLoggy {
     }
 
     final normalized = _normalizeWords(savedWords!);
-    return normalized;
+    final session = SpellingTestSession(words: normalized);
+    loggy.debug('Initial session: $session');
+    return session;
   }
 
   void saveWords(List<String> words) {
     final normalized = _normalizeWords(words);
-    state = normalized;
+    state = state.copyWith(words: normalized);
     loggy.debug('saving the words $words');
     ref.read(sharedPreferencesProvider).setStringList(_key, normalized);
   }
@@ -34,14 +37,15 @@ class SpellingWords extends _$SpellingWords with UiLoggy {
   void addWord(String wordToAdd) {
     final word = wordToAdd.toLowerCase().trim();
     if (wordToAdd.isNotEmpty) {
-      state = [...state, word];
-      _save(state);
+      state = state.copyWith(words: [...state.words, word]);
+      _save(state.words);
     }
   }
 
   void removeWord(String word) {
-    final updated = state.where((w) => w != word).toList();
-    state = updated;
+    final updated = state.words.where((w) => w != word).toList();
+
+    state = state.copyWith(words: updated);
     loggy.debug('removing "$word" words now $state');
   }
 
@@ -61,7 +65,7 @@ class SpellingWords extends _$SpellingWords with UiLoggy {
 
   void _save(List<String> words) {
     final normalized = _normalizeWords(words);
-    state = normalized;
+    state = state.copyWith(words: normalized);
 
     loggy.debug('Saving words list: $state');
     ref.read(sharedPreferencesProvider).setStringList(_key, normalized);

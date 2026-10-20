@@ -11,7 +11,7 @@ class SpellingWordEditorCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final words = ref.watch(spellingWordsProvider);
+    final words = ref.watch(spellingWordsProvider).words;
     final textTheme = Theme.of(context).textTheme;
     final controller = useTextEditingController();
 

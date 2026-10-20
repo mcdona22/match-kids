@@ -11,7 +11,7 @@ class SpellingTestScreen extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final words = ref.watch(spellingWordsProvider);
+    final words = ref.watch(spellingWordsProvider).words;
     final newWordController = useTextEditingController();
     final selectedSessionWords = useState<Set<String>>({});
     final isEditingWords = useState(false);
@@ -19,7 +19,7 @@ class SpellingTestScreen extends HookConsumerWidget with UiLoggy {
     final reviewMode = useState(false);
     final currentWordIndex = useState(0);
 
-    final sessionWords = ref.watch(spellingWordsProvider);
+    final sessionWords = ref.watch(spellingWordsProvider).words;
     loggy.debug('build: session words: $sessionWords');
 
     useEffect(() {

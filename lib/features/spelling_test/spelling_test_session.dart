@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'spelling_test_sesson.freezed.dart';
+part 'spelling_test_session.freezed.dart';
 
 @freezed
 abstract class SpellingTestSession with _$SpellingTestSession {
@@ -8,6 +8,6 @@ abstract class SpellingTestSession with _$SpellingTestSession {
 
   const factory SpellingTestSession({
     required List<String> words,
-    @Default([]) List<String> selectedWords,
+    @Default(<String>[]) List<String> selectedWords,
   }) = _SpellingTestSession;
 }

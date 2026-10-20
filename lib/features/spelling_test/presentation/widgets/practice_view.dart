@@ -9,17 +9,40 @@ class PracticeView extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(spellingWordsProvider);
+    final textTheme = Theme.of(context).textTheme;
+    final words = ref.watch(spellingWordsProvider).words;
 
     return Column(
       spacing: UiDimensions.md,
       children: [
-        const SizedBox(height: 40.0, child: const Text('Practice your words')),
+        Text('Chosen Words',
+            textAlign: TextAlign.start,
+            style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
         Column(
-          children: state.map((word) => ListTile(title: Text(word))).toList(),
+          spacing: UiDimensions.md,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: List.generate(words.length, (i) {
+            return SizedBox(
+              width: double.infinity,
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 18.0, horizontal: 30.0),
+                  child: Text(
+                    words[i],
+                    textAlign: TextAlign.center,
+                    style: textTheme.headlineLarge?.copyWith(
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            );
+            ;
+          }),
         )
       ],
     );
-    return const Center(child: Text('Under Construction'));
   }
 }
