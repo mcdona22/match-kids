@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:little_star_flashcards/features/spelling_test/spelling_test_body.dart';
-import 'package:little_star_flashcards/features/spelling_test/spelling_words_provider.dart';
-import 'package:little_star_flashcards/providers/tts_provider.dart';
+import 'package:little_star_flashcards/core/application/tts_provider.dart';
+import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_test_body.dart';
+import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_words_provider.dart';
+import 'package:loggy/loggy.dart';
 
-class SpellingTestScreen extends HookConsumerWidget {
+class SpellingTestScreen extends HookConsumerWidget with UiLoggy {
   const SpellingTestScreen({super.key});
 
   @override
@@ -17,6 +18,9 @@ class SpellingTestScreen extends HookConsumerWidget {
     final hideWords = useState(false);
     final reviewMode = useState(false);
     final currentWordIndex = useState(0);
+
+    final sessionWords = ref.watch(spellingWordsProvider);
+    loggy.debug('build: session words: $sessionWords');
 
     useEffect(() {
       if (selectedSessionWords.value.isEmpty && words.isNotEmpty) {
@@ -36,16 +40,15 @@ class SpellingTestScreen extends HookConsumerWidget {
       return null;
     }, [words]);
 
-    final sessionWords = words
-        .where((word) => selectedSessionWords.value.contains(word))
-        .toList();
-
-    if (sessionWords.isNotEmpty && currentWordIndex.value >= sessionWords.length) {
+    if (sessionWords.isNotEmpty &&
+        currentWordIndex.value >= sessionWords.length) {
       currentWordIndex.value = sessionWords.length - 1;
     }
 
-    final currentWord = sessionWords.isEmpty ? null : sessionWords[currentWordIndex.value];
-    final displayedWord = reviewMode.value || hideWords.value ? null : currentWord;
+    final currentWord =
+        sessionWords.isEmpty ? null : sessionWords[currentWordIndex.value];
+    final displayedWord =
+        reviewMode.value || hideWords.value ? null : currentWord;
 
     void toggleWordSelection(String word) {
       final nextSelection = {...selectedSessionWords.value};
@@ -58,11 +61,11 @@ class SpellingTestScreen extends HookConsumerWidget {
       if (!reviewMode.value && nextSelection.isEmpty) {
         currentWordIndex.value = 0;
       }
-      final nextSessionWords = words
-          .where((value) => nextSelection.contains(value))
-          .toList();
+      final nextSessionWords =
+          words.where((value) => nextSelection.contains(value)).toList();
       if (currentWordIndex.value >= nextSessionWords.length) {
-        currentWordIndex.value = nextSessionWords.isEmpty ? 0 : nextSessionWords.length - 1;
+        currentWordIndex.value =
+            nextSessionWords.isEmpty ? 0 : nextSessionWords.length - 1;
       }
     }
 
@@ -85,11 +88,11 @@ class SpellingTestScreen extends HookConsumerWidget {
       final nextSelection = {...selectedSessionWords.value};
       nextSelection.remove(word);
       selectedSessionWords.value = nextSelection;
-      final nextSessionWords = updatedWords
-          .where((value) => nextSelection.contains(value))
-          .toList();
+      final nextSessionWords =
+          updatedWords.where((value) => nextSelection.contains(value)).toList();
       if (currentWordIndex.value >= nextSessionWords.length) {
-        currentWordIndex.value = nextSessionWords.isEmpty ? 0 : nextSessionWords.length - 1;
+        currentWordIndex.value =
+            nextSessionWords.isEmpty ? 0 : nextSessionWords.length - 1;
       }
       reviewMode.value = false;
     }
