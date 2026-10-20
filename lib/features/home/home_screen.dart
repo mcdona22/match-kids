@@ -3,8 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/routing/router.dart';
 import 'package:little_star_flashcards/core/theme/toggle_theme_mode_button.dart';
-import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/core/ui/screen_names.dart';
+import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
+import 'package:little_star_flashcards/features/home/presentation/kid_appealing_activity_card.dart';
 import 'package:little_star_flashcards/providers/game_provider.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -215,25 +216,18 @@ class HomeScreen extends HookConsumerWidget {
                 const SizedBox(height: UiDimensions.xl),
 
                 // Action 2: Pattern & Shape Safari (Stub Feature)
-                _ActivityCard(
-                  title: 'Olivia Spelling...',
-                  subtitle: 'Working with a list of word challenges show, hide '
+
+                KidAppealingActivityCard(
+                  title: spellingScreenTitle,
+                  description:
+                      'Working with a list of word challenges show, hide '
                       'and read each word to practice for spelling tests',
-                  badgeText: 'New',
-                  badgeColor: colorScheme.secondaryContainer,
-                  badgeTextColor: colorScheme.onSecondaryContainer,
-                  icon: Icons.category_outlined,
-                  iconBackgroundColor: colorScheme.secondaryContainer,
-                  iconColor: colorScheme.onSecondaryContainer,
-                  buttonLabel: 'Open Spelling Test',
-                  buttonIcon: Icons.play_arrow_rounded,
+                  imagePath: 'assets/images/spelling.jpg',
+                  buttonLabel: "Let's Go",
                   onPressed: () =>
                       context.pushNamed(AppRoute.spellingTest.name),
-                  tags: const [
-                    'Spelling',
-                    'Practice, hide, check',
-                  ],
                 ),
+
                 const SizedBox(height: UiDimensions.xxxl),
               ],
             ),
