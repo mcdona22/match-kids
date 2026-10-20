@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/application/tts_provider.dart';
+import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 
 import '../../../models/flash_card.dart';
 import '../../../widgets/ten_frame_widget.dart';
@@ -25,6 +26,7 @@ class DotsRevealedView extends HookConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     return Column(
+      spacing: UiDimensions.lg,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +71,6 @@ class DotsRevealedView extends HookConsumerWidget {
           onDotTapped: onDotTapped,
         ),
 
-        const SizedBox(height: 12),
         Text('Counted: ${countedDots.length} / ${card.number}',
             style: textTheme.titleMedium
             // style: const TextStyle(
@@ -77,7 +78,6 @@ class DotsRevealedView extends HookConsumerWidget {
             //     color: Color(0xFF047857),
             //     fontSize: 14),
             ),
-        const SizedBox(height: 16),
         SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
