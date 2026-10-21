@@ -5,7 +5,7 @@ import 'package:little_star_flashcards/features/number_flash_card/presentation/n
 import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_test_screen.dart';
 import 'package:little_star_flashcards/main.dart';
 
-enum AppRoute { home, numberRecognition, numberFlashCard, spellingTest }
+enum AppRoute { home, numberFlashCard, spellingTest }
 
 GoRouter routerConfig = GoRouter(
   initialLocation: '/',

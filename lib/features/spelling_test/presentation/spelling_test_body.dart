@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
-import 'package:little_star_flashcards/features/spelling_test/presentation/widgets/practice_view.dart';
+import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_word_editor_card.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/widgets/spelling_practice_card.dart';
-import 'package:little_star_flashcards/features/spelling_test/presentation/widgets/spelling_word_editor_card.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/widgets/spelling_word_selection_card.dart';
+import 'package:little_star_flashcards/features/spelling_test/presentation/words_to_practice.dart';
 
 class SpellingTestBody extends StatelessWidget {
   const SpellingTestBody({
@@ -61,6 +61,9 @@ class SpellingTestBody extends StatelessWidget {
             const SizedBox(height: UiDimensions.lg),
             const SpellingWordEditorCard(),
           ],
+          const SizedBox(height: UiDimensions.lg),
+
+          const WordsToPractice(),
           const SizedBox(height: UiDimensions.lg),
           // const PracticeView(),
           SpellingPracticeCard(

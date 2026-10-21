@@ -193,26 +193,7 @@ class HomeScreen extends HookConsumerWidget {
                 const SizedBox(height: UiDimensions.lg),
 
                 // Action 1: Number Flashcards (Active Feature)
-                _ActivityCard(
-                  title: 'Eliza Number Fluency',
-                  subtitle:
-                      'Flash cards with timed reveals, interactive ten-frame dot counting, audio narration, and rewards.',
-                  badgeText: 'Active • Montessori',
-                  badgeColor: colorScheme.primary,
-                  badgeTextColor: colorScheme.onPrimary,
-                  icon: Icons.pin_outlined,
-                  iconBackgroundColor: colorScheme.primaryContainer,
-                  iconColor: colorScheme.onPrimaryContainer,
-                  buttonLabel: 'Play Number Cards',
-                  buttonIcon: Icons.play_arrow_rounded,
-                  onPressed: () =>
-                      context.pushNamed(AppRoute.numberRecognition.name),
-                  tags: const [
-                    '1 to 10+ Range',
-                    'Touch to Count',
-                    'Ten-Frame Grid'
-                  ],
-                ),
+
                 const SizedBox(height: UiDimensions.xl),
 
                 // Action 2: Pattern & Shape Safari (Stub Feature)
@@ -228,191 +209,19 @@ class HomeScreen extends HookConsumerWidget {
                       context.pushNamed(AppRoute.spellingTest.name),
                 ),
 
+                const KidAppealingActivityCard(
+                  title: flashCardScreenTitle,
+                  description: 'Flash cards to help with number fluency',
+                  imagePath: 'assets/images/numbers.jpg',
+                  buttonLabel: "Let's Go",
+                  onPressed: null,
+                  // onPressed: () =>
+                  //     context.pushNamed(AppRoute.numberFlashCard.name),
+                ),
+
                 const SizedBox(height: UiDimensions.xxxl),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ActivityCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String badgeText;
-  final Color badgeColor;
-  final Color badgeTextColor;
-  final IconData icon;
-  final Color iconBackgroundColor;
-  final Color iconColor;
-  final String buttonLabel;
-  final IconData buttonIcon;
-  final VoidCallback? onPressed;
-  final List<String> tags;
-
-  const _ActivityCard({
-    required this.title,
-    required this.subtitle,
-    required this.badgeText,
-    required this.badgeColor,
-    required this.badgeTextColor,
-    required this.icon,
-    required this.iconBackgroundColor,
-    required this.iconColor,
-    required this.buttonLabel,
-    required this.buttonIcon,
-    required this.onPressed,
-    required this.tags,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-    final isEnabled = onPressed != null;
-
-    return Card(
-      elevation: isEnabled ? 4 : 0,
-      shadowColor: colorScheme.shadow.withValues(alpha: 0.15),
-      color: isEnabled
-          ? colorScheme.surface
-          : colorScheme.surfaceContainerLow.withValues(alpha: 0.6),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-        side: BorderSide(
-          color: isEnabled
-              ? colorScheme.outlineVariant.withValues(alpha: 0.6)
-              : colorScheme.outlineVariant.withValues(alpha: 0.3),
-          width: isEnabled ? 1.5 : 1.0,
-        ),
-      ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(24),
-        onTap: onPressed,
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Top Row: Icon + Badge
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 56,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: iconBackgroundColor,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Icon(icon, color: iconColor, size: 30),
-                  ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: badgeColor,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                badgeText,
-                                style: textTheme.labelSmall?.copyWith(
-                                  color: badgeTextColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          title,
-                          style: textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: isEnabled
-                                ? colorScheme.onSurface
-                                : colorScheme.onSurface.withValues(alpha: 0.6),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: UiDimensions.md),
-
-              // Description
-              Text(
-                subtitle,
-                style: textTheme.bodyLarge?.copyWith(
-                  color: isEnabled
-                      ? colorScheme.onSurfaceVariant
-                      : colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
-                  height: 1.4,
-                ),
-              ),
-              const SizedBox(height: UiDimensions.lg),
-
-              // Tags
-              Wrap(
-                spacing: 8,
-                runSpacing: 6,
-                children: tags.map((tag) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isEnabled
-                          ? colorScheme.surfaceContainerHighest
-                              .withValues(alpha: 0.5)
-                          : colorScheme.surfaceContainerHighest
-                              .withValues(alpha: 0.3),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      tag,
-                      style: textTheme.labelSmall?.copyWith(
-                        color: isEnabled
-                            ? colorScheme.onSurfaceVariant
-                            : colorScheme.onSurfaceVariant
-                                .withValues(alpha: 0.5),
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 18),
-
-              // Action Button (with null onPressed for stub)
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton.icon(
-                  onPressed: onPressed,
-                  icon: Icon(buttonIcon, size: 20),
-                  label: Text(buttonLabel),
-                  style: FilledButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    backgroundColor: isEnabled ? colorScheme.primary : null,
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
       ),

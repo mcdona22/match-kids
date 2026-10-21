@@ -66,7 +66,7 @@ class SpellingWordSelectionCard extends HookConsumerWidget {
                         selected: notifier.isSelected(word),
                         label: Text(
                           word,
-                          style: textTheme.displaySmall,
+                          style: textTheme.titleMedium,
                         ),
                         onSelected: (_) => notifier.toggleSelectionStatus(word),
                       ),
