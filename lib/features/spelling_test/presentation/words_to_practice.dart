@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/application/tts_provider.dart';
+import 'package:little_star_flashcards/core/presentation/card_wrapper.dart';
 import 'package:little_star_flashcards/core/presentation/screen_subheading.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_words_provider.dart';
@@ -13,22 +14,25 @@ class WordsToPractice extends HookConsumerWidget with UiLoggy {
   Widget build(BuildContext context, WidgetRef ref) {
     final spellingSession = ref.watch(spellingWordsProvider);
     final selectedWords = spellingSession.selectedWords;
-    return Column(
-      spacing: UiDimensions.lg,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const ScreenSubheading(subtitle: 'Selected Words'),
-        if (selectedWords.isEmpty)
-          Text(
-            'No words selected for practice',
-            style: Theme.of(context).textTheme.titleLarge,
-          )
-        else
-          ...List.generate(
-            selectedWords.length,
-            (i) => SelectedWordView(word: selectedWords[i], isEven: i % 2 == 0),
-          )
-      ],
+    return CardWrapper(
+      child: Column(
+        spacing: UiDimensions.lg,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const ScreenSubheading(subtitle: 'Selected Words'),
+          if (selectedWords.isEmpty)
+            Text(
+              'No words selected for practice',
+              style: Theme.of(context).textTheme.titleLarge,
+            )
+          else
+            ...List.generate(
+              selectedWords.length,
+              (i) =>
+                  SelectedWordView(word: selectedWords[i], isEven: i % 2 == 0),
+            )
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
+import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_test_view.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_word_editor_card.dart';
-import 'package:little_star_flashcards/features/spelling_test/presentation/widgets/spelling_practice_card.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/widgets/spelling_word_selection_card.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/words_to_practice.dart';
 
@@ -65,17 +65,18 @@ class SpellingTestBody extends StatelessWidget {
 
           const WordsToPractice(),
           const SizedBox(height: UiDimensions.lg),
+          const SpellingTestView(),
           // const PracticeView(),
-          SpellingPracticeCard(
-            sessionWords: sessionWords,
-            hideWords: hideWords,
-            reviewMode: reviewMode,
-            displayedWord: displayedWord,
-            onToggleHide: onToggleHide,
-            onRead: onRead,
-            onNext: onNext,
-            onPracticeAgain: onPracticeAgain,
-          ),
+          // SpellingPracticeCard(
+          //   sessionWords: sessionWords,
+          //   hideWords: hideWords,
+          //   reviewMode: reviewMode,
+          //   displayedWord: displayedWord,
+          //   onToggleHide: onToggleHide,
+          //   onRead: onRead,
+          //   onNext: onNext,
+          //   onPracticeAgain: onPracticeAgain,
+          // ),
         ],
       ),
     );
