@@ -9,12 +9,11 @@ part 'spelling_words_provider.g.dart';
 
 @Riverpod(keepAlive: false)
 class SpellingWords extends _$SpellingWords with UiLoggy {
-  static const _key = 'little_star_flashcards.spelling_session';
+  static const _key = 'little_star.spelling_session';
 
   @override
   SpellingTestSession build() {
-    ref.onDispose(() => loggy.debug('disposing SpellingWords session '
-        'provider'));
+    ref.onDispose(() => loggy.debug('disposing SpellingWords session '));
     const defaultPreferences = SpellingTestSession();
     final prefs = ref.read(sharedPreferencesProvider);
 
@@ -23,7 +22,10 @@ class SpellingWords extends _$SpellingWords with UiLoggy {
     if (rawJson != null && rawJson.isNotEmpty) {
       loggy.debug('preferences found - $rawJson');
       try {
-        return SpellingTestSession.fromJson(jsonDecode(rawJson));
+        return SpellingTestSession.fromJson(jsonDecode(rawJson))
+            .copyWith(testMode: false);
+        // when we create a new session we are not in test mode at the beginning
+        // regardless of how we left the session and it was disposed
       } catch (e) {
         loggy.warning(
             'Something wrong fetching preferences - returning defaults');
@@ -93,6 +95,8 @@ class SpellingWords extends _$SpellingWords with UiLoggy {
 
     return normalized;
   }
+
+  set testMode(bool value) => state = state.copyWith(testMode: value);
 
   void _writePreferences({SpellingTestSession? session}) {
     loggy.debug('persisting session preferences : ${session ?? state}');

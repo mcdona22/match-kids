@@ -10,6 +10,7 @@ abstract class SpellingTestSession with _$SpellingTestSession {
   const factory SpellingTestSession({
     @Default(<String>[]) List<String> words,
     @Default(<String>[]) List<String> selectedWords,
+    @Default(false) bool testMode,
   }) = _SpellingTestSession;
 
   factory SpellingTestSession.fromJson(Map<String, dynamic> json) =>

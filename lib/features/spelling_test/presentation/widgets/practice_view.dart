@@ -39,7 +39,6 @@ class PracticeView extends HookConsumerWidget with UiLoggy {
                 ),
               ),
             );
-            ;
           }),
         )
       ],

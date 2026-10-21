@@ -45,7 +45,6 @@ class SelectedWordView extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    loggy.debug('Even is $isEven');
     final theme = Theme.of(context);
     final backgroundColor = isEven
         ? theme.colorScheme.primaryFixedDim
@@ -53,9 +52,6 @@ class SelectedWordView extends HookConsumerWidget with UiLoggy {
     final foregroundColor = isEven
         ? theme.colorScheme.onPrimaryFixed
         : theme.colorScheme.onPrimaryContainer;
-
-    loggy.debug('Even is $isEven');
-    loggy.debug('colourL $backgroundColor');
 
     return InkWell(
       onTap: () => ref.read(ttsProvider).speak(word),

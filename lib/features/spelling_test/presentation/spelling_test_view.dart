@@ -80,7 +80,6 @@ class SpellingTestView extends HookConsumerWidget with UiLoggy {
             ),
           ],
         ),
-        const Text('Lets test'),
       ],
     ));
   }
