@@ -16,4 +16,6 @@ class UiDimensions {
   static const double sectionGap = 12;
   static const double blockGap = 16;
   static const double largeGap = 24;
+
+  static const defaultToolbarHeight = 90.0;
 }

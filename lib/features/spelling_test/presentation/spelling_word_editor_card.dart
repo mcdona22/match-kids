@@ -57,23 +57,23 @@ class SpellingWordEditorCard extends HookConsumerWidget {
           if (words.isEmpty)
             const Text('No words saved yet.')
           else
-            ...words.map(
-              (word) => Row(
-                children: [
-                  IconButton(
-                    tooltip: 'Remove word',
-                    onPressed: () => ref
-                        .read(spellingWordsProvider.notifier)
-                        .removeWord(word),
-                    icon: Icon(Icons.delete,
-                        color: Theme.of(context).colorScheme.error),
-                  ),
-                  Text(
-                    word,
-                    style: textTheme.titleLarge,
-                  ),
-                ],
-              ),
+            Wrap(
+              spacing: UiDimensions.md,
+              children: words
+                  .map(
+                    (word) => InputChip(
+                      label: Text(word, style: textTheme.headlineSmall),
+                      deleteIcon: Icon(Icons.close_rounded,
+                          color: Theme.of(context).colorScheme.error,
+                          size: 24.0),
+                      onDeleted: () => ref
+                          .read(spellingWordsProvider.notifier)
+                          .removeWord(word),
+                    ),
+                  )
+                  .toList(),
+
+              // Text(word)).toList(),
             ),
         ],
       ),

@@ -6,16 +6,10 @@ import 'package:little_star_flashcards/features/spelling_test/presentation/spell
 
 class SpellingWordSelectionCard extends HookConsumerWidget {
   const SpellingWordSelectionCard({
-    // required this.hideWords,
-    // required this.isEditing,
-    // required this.onToggleSelection,
     required this.onToggleEditor,
     super.key,
   });
 
-  // final bool hideWords;
-  // final bool isEditing;
-  // final ValueChanged<String> onToggleSelection;
   final VoidCallback onToggleEditor;
 
   @override
@@ -23,7 +17,6 @@ class SpellingWordSelectionCard extends HookConsumerWidget {
     final wordsState = ref.watch(spellingWordsProvider);
     final notifier = ref.watch(spellingWordsProvider.notifier);
     final textTheme = Theme.of(context).textTheme;
-    // final colorScheme = Theme.of(context).colorScheme;
 
     final isEditing = useState<bool>(false);
 
@@ -40,19 +33,6 @@ class SpellingWordSelectionCard extends HookConsumerWidget {
                   textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: UiDimensions.md),
-            //   Container(
-            //     width: double.infinity,
-            //     padding: const EdgeInsets.all(UiDimensions.md),
-            //     decoration: BoxDecoration(
-            //       color: colorScheme.surfaceContainerHighest,
-            //       borderRadius: BorderRadius.circular(12),
-            //     ),
-            //     child: Text(
-            //       'Words are hidden during the test. Use “Show words” to review the list.',
-            //       style: textTheme.bodyMedium,
-            //     ),
-            //   )
-            // else
             Wrap(
               spacing: 8,
               runSpacing: 8,
