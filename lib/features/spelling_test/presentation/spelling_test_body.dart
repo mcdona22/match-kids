@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/ui/screen_names.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_test_view.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_word_editor_card.dart';
@@ -29,6 +30,19 @@ class SpellingTestBody extends HookConsumerWidget {
       child: ListView(
         padding: const EdgeInsets.all(UiDimensions.cardPadding),
         children: [
+          Hero(
+            tag: '$spellingScreenTitle-hero',
+            child: SizedBox(
+              height: 300.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                  'assets/images/spelling.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
           if (!session.testMode)
             SpellingWordSelectionCard(
               onToggleEditor: onToggleEditor,

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:little_star_flashcards/features/spelling_test/spelling_test_session.dart';
+import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_test_session.dart';
 import 'package:little_star_flashcards/providers/shared_preferences_provider.dart';
 import 'package:loggy/loggy.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

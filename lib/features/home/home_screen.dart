@@ -5,7 +5,7 @@ import 'package:little_star_flashcards/core/routing/router.dart';
 import 'package:little_star_flashcards/core/theme/toggle_theme_mode_button.dart';
 import 'package:little_star_flashcards/core/ui/screen_names.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
-import 'package:little_star_flashcards/features/home/presentation/kid_appealing_activity_card.dart';
+import 'package:little_star_flashcards/features/home/kid_appealing_activity_card.dart';
 import 'package:little_star_flashcards/providers/game_provider.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -86,90 +86,90 @@ class HomeScreen extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               children: [
                 // Hero Header Banner
-                Container(
-                  padding: const EdgeInsets.all(UiDimensions.xxl),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        colorScheme.primaryContainer,
-                        colorScheme.surfaceContainerHighest,
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(28),
-                    border: Border.all(
-                      color: colorScheme.outlineVariant.withValues(alpha: 0.5),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: UiDimensions.sm,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color:
-                                    colorScheme.primary.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                'Early Learning Playground 🎈',
-                                style: textTheme.labelMedium?.copyWith(
-                                  color: colorScheme.primary,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              'Ready to Learn & Play?',
-                              style: textTheme.headlineSmall?.copyWith(
-                                fontWeight: FontWeight.w800,
-                                color: colorScheme.onPrimaryContainer,
-                              ),
-                            ),
-                            Text(
-                              'Choose an activity below to explore numbers, count interactive dots, and collect shiny stars!',
-                              style: textTheme.bodyMedium?.copyWith(
-                                color: colorScheme.onSurfaceVariant,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: UiDimensions.lg),
-                      Container(
-                        width: 72,
-                        height: 72,
-                        decoration: BoxDecoration(
-                          color: colorScheme.primary,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: colorScheme.primary.withValues(alpha: 0.3),
-                              blurRadius: 16,
-                              offset: const Offset(0, 6),
-                            ),
-                          ],
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.school_rounded,
-                            color: colorScheme.onPrimary,
-                            size: 38,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: UiDimensions.xxl),
+                // Container(
+                //   padding: const EdgeInsets.all(UiDimensions.xxl),
+                //   decoration: BoxDecoration(
+                //     gradient: LinearGradient(
+                //       begin: Alignment.topLeft,
+                //       end: Alignment.bottomRight,
+                //       colors: [
+                //         colorScheme.primaryContainer,
+                //         colorScheme.surfaceContainerHighest,
+                //       ],
+                //     ),
+                //     borderRadius: BorderRadius.circular(28),
+                //     border: Border.all(
+                //       color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+                //     ),
+                //   ),
+                //   child: Row(
+                //     children: [
+                //       Expanded(
+                //         child: Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           spacing: UiDimensions.sm,
+                //           children: [
+                //             Container(
+                //               padding: const EdgeInsets.symmetric(
+                //                 horizontal: 10,
+                //                 vertical: 4,
+                //               ),
+                //               decoration: BoxDecoration(
+                //                 color:
+                //                     colorScheme.primary.withValues(alpha: 0.15),
+                //                 borderRadius: BorderRadius.circular(12),
+                //               ),
+                //               child: Text(
+                //                 'Early Learning Playground 🎈',
+                //                 style: textTheme.labelMedium?.copyWith(
+                //                   color: colorScheme.primary,
+                //                   fontWeight: FontWeight.bold,
+                //                 ),
+                //               ),
+                //             ),
+                //             Text(
+                //               'Ready to Learn & Play?',
+                //               style: textTheme.headlineSmall?.copyWith(
+                //                 fontWeight: FontWeight.w800,
+                //                 color: colorScheme.onPrimaryContainer,
+                //               ),
+                //             ),
+                //             Text(
+                //               'Choose an activity below to explore numbers, count interactive dots, and collect shiny stars!',
+                //               style: textTheme.bodyMedium?.copyWith(
+                //                 color: colorScheme.onSurfaceVariant,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       const SizedBox(width: UiDimensions.lg),
+                //       Container(
+                //         width: 72,
+                //         height: 72,
+                //         decoration: BoxDecoration(
+                //           color: colorScheme.primary,
+                //           shape: BoxShape.circle,
+                //           boxShadow: [
+                //             BoxShadow(
+                //               color: colorScheme.primary.withValues(alpha: 0.3),
+                //               blurRadius: 16,
+                //               offset: const Offset(0, 6),
+                //             ),
+                //           ],
+                //         ),
+                //         child: Center(
+                //           child: Icon(
+                //             Icons.school_rounded,
+                //             color: colorScheme.onPrimary,
+                //             size: 38,
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // const SizedBox(height: UiDimensions.xxl),
 
                 // Section Label
                 Row(

@@ -60,19 +60,22 @@ class KidAppealingActivityCard extends StatelessWidget with UiLoggy {
                       borderRadius: BorderRadius.circular(20),
                       child: AspectRatio(
                         aspectRatio: 16 / 9,
-                        child: Image.asset(
-                          imagePath!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            loggy.error(error);
-                            return Container(
-                              color: colorScheme.surfaceContainerHighest,
-                              child: Icon(
-                                Icons.image_not_supported_rounded,
-                                color: colorScheme.onSurfaceVariant,
-                              ),
-                            );
-                          },
+                        child: Hero(
+                          tag: '$title-hero',
+                          child: Image.asset(
+                            imagePath!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              loggy.error(error);
+                              return Container(
+                                color: colorScheme.surfaceContainerHighest,
+                                child: Icon(
+                                  Icons.image_not_supported_rounded,
+                                  color: colorScheme.onSurfaceVariant,
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
