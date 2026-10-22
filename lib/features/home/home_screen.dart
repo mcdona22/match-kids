@@ -194,7 +194,7 @@ class HomeScreen extends HookConsumerWidget {
 
                 // Action 1: Number Flashcards (Active Feature)
 
-                const SizedBox(height: UiDimensions.xl),
+                // const SizedBox(height: UiDimensions.xl),
 
                 // Action 2: Pattern & Shape Safari (Stub Feature)
 
@@ -203,7 +203,7 @@ class HomeScreen extends HookConsumerWidget {
                   description:
                       'Working with a list of word challenges show, hide '
                       'and read each word to practice for spelling tests',
-                  imagePath: 'assets/images/spelling.jpg',
+                  imagePath: 'assets/images/spelling.webp',
                   buttonLabel: "Let's Go",
                   onPressed: () =>
                       context.pushNamed(AppRoute.spellingTest.name),

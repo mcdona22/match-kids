@@ -37,7 +37,7 @@ class SpellingTestBody extends HookConsumerWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.asset(
-                  'assets/images/spelling.jpg',
+                  'assets/images/spelling.webp',
                   fit: BoxFit.cover,
                 ),
               ),
