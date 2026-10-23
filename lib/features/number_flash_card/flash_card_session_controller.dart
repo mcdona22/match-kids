@@ -9,6 +9,7 @@ part 'flash_card_session_controller.g.dart';
 @riverpod
 class FlashCardSessionController extends _$FlashCardSessionController
     with UiLoggy {
+  @override
   FlashCardSession build() {
     return _newSession();
   }

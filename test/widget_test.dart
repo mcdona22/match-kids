@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/app.dart';
 import 'package:little_star_flashcards/core/routing/router.dart';
 import 'package:little_star_flashcards/features/flash_cards/presentation/flash_screen.dart';
 import 'package:little_star_flashcards/features/number_flash_card/presentation/number_flash_card_screen.dart';
-import 'package:little_star_flashcards/features/spelling_test/spelling_test_screen.dart';
+import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_test_screen.dart';
 import 'package:little_star_flashcards/providers/shared_preferences_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

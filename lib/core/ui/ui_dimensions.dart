@@ -11,9 +11,11 @@ class UiDimensions {
   static const double xxxl = 32;
   static const double huge = 28;
 
-  static const double cardPadding = 16;
+  static const double cardPadding = 22;
   static const double inlineGap = 8;
   static const double sectionGap = 12;
   static const double blockGap = 16;
   static const double largeGap = 24;
+
+  static const defaultToolbarHeight = 90.0;
 }
