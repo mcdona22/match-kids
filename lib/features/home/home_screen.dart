@@ -82,24 +82,24 @@ class HomeScreen extends HookConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               children: [
-                Row(
-                  children: [
-                    Text(
-                      'Learning Activities',
-                      style: textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      '1 Active • 1 Coming Soon',
-                      style: textTheme.labelSmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ],
-                ),
+                //   Row(
+                //     children: [
+                //       Text(
+                //         'Learning Activities',
+                //         style: textTheme.titleMedium?.copyWith(
+                //           fontWeight: FontWeight.bold,
+                //           color: colorScheme.onSurface,
+                //         ),
+                //       ),
+                //       const Spacer(),
+                //       Text(
+                //         '1 Active • 1 Coming Soon',
+                //         style: textTheme.labelSmall?.copyWith(
+                //           color: colorScheme.onSurfaceVariant,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
                 const SizedBox(height: UiDimensions.lg),
                 ...activityCards,
                 const SizedBox(height: UiDimensions.xxxl),
