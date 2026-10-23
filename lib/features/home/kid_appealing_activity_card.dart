@@ -7,6 +7,7 @@ class KidAppealingActivityCard extends StatelessWidget with UiLoggy {
   final String description;
   final String buttonLabel;
   final VoidCallback? onPressed;
+  final Key? buttonKey;
   final String? imagePath;
   final Color? containerColor;
   final bool isNew;
@@ -17,6 +18,7 @@ class KidAppealingActivityCard extends StatelessWidget with UiLoggy {
     required this.description,
     required this.buttonLabel,
     required this.onPressed,
+    this.buttonKey,
     this.imagePath,
     this.containerColor,
     this.isNew = false,
@@ -146,6 +148,7 @@ class KidAppealingActivityCard extends StatelessWidget with UiLoggy {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton.icon(
+                  key: buttonKey,
                   onPressed: onPressed,
                   icon: const Icon(Icons.play_arrow_rounded, size: 24),
                   label: Text(buttonLabel),

@@ -1,4 +1,4 @@
-# Little Star Number Flash Cards (Flutter with Riverpod Annotations)
+# Little Star (Flutter with Riverpod Annotations)
 
 A cross-platform early learning Flutter application built with **Riverpod
 Annotations (`@riverpod`)**, **Flutter Hooks**, and **`HookConsumerWidget`** —

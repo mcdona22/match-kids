@@ -38,7 +38,7 @@ class FlashCardsScreen extends HookConsumerWidget {
         // backgroundColor: Colors.white,
         elevation: 50,
         title: Text(
-          'Number Cards (1–${settings.upperLimit})',
+          'Little Star Cards (1–${settings.upperLimit})',
           style: textTheme.titleLarge,
         ),
         actions: [

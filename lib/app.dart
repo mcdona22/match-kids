@@ -11,7 +11,7 @@ class App extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      title: 'Little Star Number Flash Cards',
+      title: 'Little Star',
       debugShowCheckedModeBanner: true,
       // theme: ThemeData(
       //   useMaterial3: true,
