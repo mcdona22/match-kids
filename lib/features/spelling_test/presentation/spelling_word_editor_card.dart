@@ -12,6 +12,9 @@ class SpellingWordEditorCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final mobileView =
+        MediaQuery.sizeOf(context).width <= UiDimensions.mobileWidth;
+
     final words = ref.watch(spellingWordsProvider).words;
     final textTheme = Theme.of(context).textTheme;
     final controller = useTextEditingController();
@@ -25,35 +28,21 @@ class SpellingWordEditorCard extends HookConsumerWidget {
             'Edit words',
             style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
-          Row(
-            spacing: UiDimensions.md,
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: controller,
-                  textCapitalization: TextCapitalization.none,
-                  decoration: const InputDecoration(
-                    hintText: 'Add a new word',
-                    border: OutlineInputBorder(),
-                  ),
+          if (mobileView)
+            Column(spacing: UiDimensions.lg, children: [
+              _WordTextInput(controller: controller),
+              _WordInputControls(controller: controller),
+            ])
+          else
+            Row(
+              spacing: UiDimensions.md,
+              children: [
+                Expanded(
+                  child: _WordTextInput(controller: controller),
                 ),
-              ),
-              FilledButton.icon(
-                onPressed: () {
-                  ref
-                      .read(spellingWordsProvider.notifier)
-                      .addWord(controller.text);
-                  controller.text = '';
-                },
-                icon: const Icon(Icons.add),
-                label: const Text('Add'),
-              ),
-              ElevatedButton(
-                  onPressed:
-                      ref.read(spellingWordsProvider.notifier).resetSession,
-                  child: const Text('Clear All'))
-            ],
-          ),
+                _WordInputControls(controller: controller),
+              ],
+            ),
           if (words.isEmpty)
             const Text('No words saved yet.')
           else
@@ -77,6 +66,54 @@ class SpellingWordEditorCard extends HookConsumerWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+class _WordTextInput extends StatelessWidget {
+  const _WordTextInput({
+    super.key,
+    required this.controller,
+  });
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      textCapitalization: TextCapitalization.none,
+      decoration: const InputDecoration(
+        hintText: 'Add a new word',
+        border: OutlineInputBorder(),
+      ),
+    );
+  }
+}
+
+class _WordInputControls extends HookConsumerWidget {
+  const _WordInputControls({required this.controller, super.key});
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Row(
+      spacing: UiDimensions.inlineGap,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        FilledButton.icon(
+          onPressed: () {
+            ref.read(spellingWordsProvider.notifier).addWord(controller.text);
+            controller.text = '';
+          },
+          icon: const Icon(Icons.add),
+          label: const Text('Add'),
+        ),
+        ElevatedButton(
+            onPressed: ref.read(spellingWordsProvider.notifier).resetSession,
+            child: const Text('Clear All'))
+      ],
     );
   }
 }

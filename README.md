@@ -1,27 +1,11 @@
 # Little Star (Flutter with Riverpod Annotations)
 
-A cross-platform early learning Flutter application built with **Riverpod
-Annotations (`@riverpod`)**, **Flutter Hooks**, and **`HookConsumerWidget`** —
-with **zero `StatefulWidget`s**.
+## Deployment
 
-## Architecture
-
-- **Riverpod Annotations (`riverpod_annotation` & `riverpod_generator`)**:
-    - `@riverpod FlutterTts tts(TtsRef ref)` in
-      `lib/providers/tts_provider.dart`
-    -
-    `@Riverpod(keepAlive: true) class SettingsController extends _$SettingsController`
-    in `lib/providers/settings_provider.dart`
-    - `@Riverpod(keepAlive: true) class GameController extends _$GameController`
-      in `lib/providers/game_provider.dart`
-- **Zero `StatefulWidget`s**: All UI components extend `HookConsumerWidget`.
-- **Flutter Hooks (`flutter_hooks`)**:
-    - `useState` for transient countdown progress and Parent Zone draft inputs.
-    - `useEffect` for timer intervals and controller cleanup.
-    - `useMemoized` for confetti controllers.
-- **20% Upper Range Challenge**: Custom stack generator ensuring exactly 20% of
-  cards are drawn from the upper tier and 80% from the foundation tier,
-  thoroughly shuffled with the Fisher-Yates algorithm.
+```bash
+flutter build web --release --pwa-strategy=none --dart-define=APP_VERSION="$(date +%s)"
+firebase deploy --only hosting
+````
 
 ## Running the App
 

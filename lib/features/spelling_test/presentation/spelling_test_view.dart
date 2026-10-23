@@ -60,7 +60,10 @@ class SpellingTestView extends HookConsumerWidget with UiLoggy {
                 onPressed: () =>
                     ttsService.speak(selectedWords[currentCardIndex.value]),
                 style: buttonStyle(context),
-                child: const Text('Repeat word'),
+                child: const Text(
+                  'Repeat word',
+                  textAlign: TextAlign.center,
+                ),
               ),
             )),
             SizedBox(

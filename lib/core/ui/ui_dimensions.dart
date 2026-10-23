@@ -18,4 +18,7 @@ class UiDimensions {
   static const double largeGap = 24;
 
   static const defaultToolbarHeight = 90.0;
+
+  static const smallHeight = 700.0;
+  static const mobileWidth = 450.0;
 }

@@ -26,7 +26,8 @@ class SpellingTestBody extends HookConsumerWidget with UiLoggy {
   Widget build(BuildContext context, WidgetRef ref) {
     final session = ref.watch(spellingWordsProvider);
     final sessionNotifier = ref.read(spellingWordsProvider.notifier);
-    final showGraphic = MediaQuery.sizeOf(context).height >= 700.0;
+    final showGraphic =
+        MediaQuery.sizeOf(context).height >= UiDimensions.smallHeight;
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.all(UiDimensions.cardPadding),
