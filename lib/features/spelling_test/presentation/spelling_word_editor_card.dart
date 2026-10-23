@@ -98,6 +98,7 @@ class _WordInputControls extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(spellingWordsProvider);
     return Row(
       spacing: UiDimensions.inlineGap,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,7 +112,9 @@ class _WordInputControls extends HookConsumerWidget {
           label: const Text('Add'),
         ),
         ElevatedButton(
-            onPressed: ref.read(spellingWordsProvider.notifier).resetSession,
+            onPressed: state.words.isNotEmpty
+                ? ref.read(spellingWordsProvider.notifier).resetSession
+                : null,
             child: const Text('Clear All'))
       ],
     );
