@@ -7,8 +7,9 @@ import 'package:little_star_flashcards/features/spelling_test/presentation/spell
 import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_words_provider.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/widgets/spelling_word_selection_card.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/words_to_practice.dart';
+import 'package:loggy/loggy.dart';
 
-class SpellingTestBody extends HookConsumerWidget {
+class SpellingTestBody extends HookConsumerWidget with UiLoggy {
   const SpellingTestBody({
     required this.hideWords,
     required this.isEditing,
@@ -25,24 +26,26 @@ class SpellingTestBody extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final session = ref.watch(spellingWordsProvider);
     final sessionNotifier = ref.read(spellingWordsProvider.notifier);
-
+    final showGraphic = MediaQuery.sizeOf(context).height >= 700.0;
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.all(UiDimensions.cardPadding),
         children: [
           Hero(
-            tag: '$spellingScreenTitle-hero',
-            child: SizedBox(
-              height: 300.0,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  'assets/images/spelling.webp',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
+              tag: '$spellingScreenTitle-hero',
+              child: showGraphic
+                  ? SizedBox(
+                      height: 300.0,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/images/spelling.webp',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink()),
+
           if (!session.testMode)
             SpellingWordSelectionCard(
               onToggleEditor: onToggleEditor,
