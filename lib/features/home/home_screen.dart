@@ -46,36 +46,36 @@ class HomeScreen extends HookConsumerWidget {
             ),
           ],
         ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            decoration: BoxDecoration(
-              color: colorScheme.secondaryContainer,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              spacing: UiDimensions.xs,
-              children: [
-                Icon(
-                  Icons.star_rounded,
-                  color: colorScheme.primary,
-                  size: 20,
-                ),
-                Text(
-                  '$totalStars',
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme.onSecondaryContainer,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: UiDimensions.xxs),
-          const ToggleThemModeButton(iconSize: 24),
-          const SizedBox(width: UiDimensions.sm),
+        actions: const [
+          // Container(
+          //   margin: const EdgeInsets.symmetric(vertical: 8),
+          //   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          //   decoration: BoxDecoration(
+          //     color: colorScheme.secondaryContainer,
+          //     borderRadius: BorderRadius.circular(20),
+          //   ),
+          //   child: Row(
+          //     mainAxisSize: MainAxisSize.min,
+          //     spacing: UiDimensions.xs,
+          //     children: [
+          //       Icon(
+          //         Icons.star_rounded,
+          //         color: colorScheme.primary,
+          //         size: 20,
+          //       ),
+          //       Text(
+          //         '$totalStars',
+          //         style: textTheme.titleMedium?.copyWith(
+          //           fontWeight: FontWeight.bold,
+          //           color: colorScheme.onSecondaryContainer,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          SizedBox(width: UiDimensions.xxs),
+          ToggleThemModeButton(iconSize: 24),
+          SizedBox(width: UiDimensions.sm),
         ],
       ),
       body: SafeArea(
