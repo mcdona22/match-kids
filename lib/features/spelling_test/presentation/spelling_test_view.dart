@@ -14,7 +14,7 @@ class SpellingTestView extends HookConsumerWidget with UiLoggy {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-    const buttonWidth = 100.0;
+    const buttonWidth = 60.0;
     const buttonHeight = 75.0;
     const iconSize = 45.0;
     final selectedWords = ref.watch(spellingWordsProvider).selectedWords;
@@ -60,7 +60,7 @@ class SpellingTestView extends HookConsumerWidget with UiLoggy {
                 onPressed: () =>
                     ttsService.speak(selectedWords[currentCardIndex.value]),
                 style: buttonStyle(context),
-                child: Text('Repeat word'),
+                child: const Text('Repeat word'),
               ),
             )),
             SizedBox(

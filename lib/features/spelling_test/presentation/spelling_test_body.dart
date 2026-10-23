@@ -61,7 +61,9 @@ class SpellingTestBody extends HookConsumerWidget with UiLoggy {
               children: [
                 if (!session.testMode)
                   FilledButton(
-                      onPressed: () => sessionNotifier.testMode = true,
+                      onPressed: session.selectedWords.isNotEmpty
+                          ? () => sessionNotifier.testMode = true
+                          : null,
                       child: const Text('Start Test')),
                 if (session.testMode)
                   FilledButton(
