@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_loggy/flutter_loggy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/app.dart';
-import 'package:little_star_flashcards/providers/shared_preferences_provider.dart';
 import 'package:loggy/loggy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'core/providers/shared_preferences_provider.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 

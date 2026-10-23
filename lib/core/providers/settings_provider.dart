@@ -1,7 +1,6 @@
-import 'package:little_star_flashcards/providers/shared_preferences_provider.dart';
+import 'package:little_star_flashcards/core/providers/shared_preferences_provider.dart';
+import 'package:little_star_flashcards/models/parent_settings.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../models/parent_settings.dart';
 
 part 'settings_provider.g.dart';
 

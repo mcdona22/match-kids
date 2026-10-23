@@ -6,7 +6,6 @@ import 'package:little_star_flashcards/core/theme/toggle_theme_mode_button.dart'
 import 'package:little_star_flashcards/core/ui/screen_names.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/home/kid_appealing_activity_card.dart';
-import 'package:little_star_flashcards/providers/game_provider.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
@@ -15,8 +14,6 @@ class HomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final totalStars =
-        ref.watch(gameControllerProvider.select((s) => s.totalStars));
 
     final activityCards = [
       KidAppealingActivityCard(
@@ -29,7 +26,7 @@ class HomeScreen extends HookConsumerWidget {
         buttonKey: const ValueKey('spelling-card-button'),
         onPressed: () => context.pushNamed(AppRoute.spellingTest.name),
       ),
-      KidAppealingActivityCard(
+      const KidAppealingActivityCard(
         key: const ValueKey('number-card'),
         title: flashCardScreenTitle,
         description:
@@ -37,7 +34,9 @@ class HomeScreen extends HookConsumerWidget {
         imagePath: 'assets/images/numbers.jpg',
         buttonLabel: 'Little Star Number Cards',
         buttonKey: const ValueKey('number-card-button'),
-        onPressed: () => context.pushNamed(AppRoute.numberFlashCard.name),
+        onPressed: null,
+
+        // onPressed: () => context.pushNamed(AppRoute.numberFlashCard.name),
       ),
     ];
 
@@ -82,24 +81,6 @@ class HomeScreen extends HookConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               children: [
-                //   Row(
-                //     children: [
-                //       Text(
-                //         'Learning Activities',
-                //         style: textTheme.titleMedium?.copyWith(
-                //           fontWeight: FontWeight.bold,
-                //           color: colorScheme.onSurface,
-                //         ),
-                //       ),
-                //       const Spacer(),
-                //       Text(
-                //         '1 Active • 1 Coming Soon',
-                //         style: textTheme.labelSmall?.copyWith(
-                //           color: colorScheme.onSurfaceVariant,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
                 const SizedBox(height: UiDimensions.lg),
                 ...activityCards,
                 const SizedBox(height: UiDimensions.xxxl),

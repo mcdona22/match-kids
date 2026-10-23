@@ -35,6 +35,7 @@ class SpellingTestScreen extends HookConsumerWidget with UiLoggy {
       //   actions: const [ToggleThemModeButton()],
       // ),
       body: CentredConstrainedWidget(
+        maxWidth: 800.0,
         child: SpellingTestBody(
           hideWords: hideWords.value,
           isEditing: isEditingWords.value,
