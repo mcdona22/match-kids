@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/presentation/centred_constrained_widget.dart';
 import 'package:little_star_flashcards/core/presentation/screen_title.dart';
 import 'package:little_star_flashcards/core/presentation/screen_utils.dart';
 import 'package:little_star_flashcards/core/theme/toggle_theme_mode_button.dart';
@@ -33,10 +34,12 @@ class SpellingTestScreen extends HookConsumerWidget with UiLoggy {
       //   title: const Text('Spelling Test'),
       //   actions: const [ToggleThemModeButton()],
       // ),
-      body: SpellingTestBody(
-        hideWords: hideWords.value,
-        isEditing: isEditingWords.value,
-        onToggleEditor: () => isEditingWords.value = !isEditingWords.value,
+      body: CentredConstrainedWidget(
+        child: SpellingTestBody(
+          hideWords: hideWords.value,
+          isEditing: isEditingWords.value,
+          onToggleEditor: () => isEditingWords.value = !isEditingWords.value,
+        ),
       ),
     );
   }
