@@ -7,6 +7,11 @@ flutter build web --release --pwa-strategy=none --dart-define=APP_VERSION="$(dat
 firebase deploy --only hosting
 ````
 
+```bash
+flutter build web --release  --dart-define=APP_VERSION="$(date +%s)"
+firebase deploy --only hosting
+```
+
 ## Running the App
 
 1. Install dependencies:
