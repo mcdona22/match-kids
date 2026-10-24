@@ -53,7 +53,10 @@ class SpellingWordSelectionCard extends HookConsumerWidget {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton.icon(
-                onPressed: onToggleEditor,
+                onPressed: () {
+                  isEditing.value = !isEditing.value;
+                  onToggleEditor();
+                },
                 icon: Icon(
                   isEditing.value
                       ? Icons.expand_less

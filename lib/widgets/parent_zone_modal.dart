@@ -1,11 +1,11 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/providers/game_provider.dart';
+import 'package:little_star_flashcards/core/providers/settings_provider.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
-
-import '../providers/settings_provider.dart';
-import '../providers/game_provider.dart';
 
 class ParentZoneModal extends HookConsumerWidget {
   const ParentZoneModal({super.key});
@@ -119,11 +119,15 @@ class ParentZoneModal extends HookConsumerWidget {
                     stackSize: draftStack.value,
                     intervalSeconds: draftInterval.value,
                   );
-                  ref.read(settingsControllerProvider.notifier).updateSettings(newSettings);
+                  ref
+                      .read(settingsControllerProvider.notifier)
+                      .updateSettings(newSettings);
                   ref.read(gameControllerProvider.notifier).generateNewStack();
                   Navigator.pop(context);
                 },
-                child: const Text('Save & Start New Stack', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                child: const Text('Save & Start New Stack',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               ),
             ),
           ],

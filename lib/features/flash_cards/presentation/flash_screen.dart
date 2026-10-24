@@ -2,12 +2,12 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/providers/game_provider.dart';
+import 'package:little_star_flashcards/core/providers/settings_provider.dart';
 import 'package:little_star_flashcards/core/theme/toggle_theme_mode_button.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/flash_cards/presentation/dots_revealed_view.dart';
 import 'package:little_star_flashcards/features/flash_cards/presentation/number_interval_view.dart';
-import 'package:little_star_flashcards/providers/game_provider.dart';
-import 'package:little_star_flashcards/providers/settings_provider.dart';
 import 'package:little_star_flashcards/widgets/celebration_dialog.dart';
 import 'package:little_star_flashcards/widgets/parent_zone_modal.dart';
 
@@ -38,7 +38,7 @@ class FlashCardsScreen extends HookConsumerWidget {
         // backgroundColor: Colors.white,
         elevation: 50,
         title: Text(
-          'Number Cards (1–${settings.upperLimit})',
+          'Little Star Cards (1–${settings.upperLimit})',
           style: textTheme.titleLarge,
         ),
         actions: [
@@ -100,7 +100,8 @@ class FlashCardsScreen extends HookConsumerWidget {
                     children: [
                       if (currentCard.isUpperRange)
                         Container(
-                          margin: const EdgeInsets.only(bottom: UiDimensions.md),
+                          margin:
+                              const EdgeInsets.only(bottom: UiDimensions.md),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 6),
                           decoration: BoxDecoration(

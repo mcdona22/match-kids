@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:little_star_flashcards/core/application/tts_provider.dart';
+import 'package:little_star_flashcards/models/flash_card.dart';
+import 'package:little_star_flashcards/models/game_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/flash_card.dart';
-import '../models/game_state.dart';
 import 'settings_provider.dart';
 
 part 'game_provider.g.dart';

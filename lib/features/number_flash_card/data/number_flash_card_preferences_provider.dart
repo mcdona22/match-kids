@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:little_star_flashcards/core/providers/shared_preferences_provider.dart';
 import 'package:little_star_flashcards/features/number_flash_card/domain/number_flash_card_preferences.dart';
-import 'package:little_star_flashcards/providers/shared_preferences_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'number_flash_card_preferences_provider.g.dart';
