@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/application/hard_coded.dart';
 import 'package:little_star_flashcards/core/application/tts_provider.dart';
 import 'package:little_star_flashcards/core/presentation/card_wrapper.dart';
 import 'package:little_star_flashcards/core/presentation/screen_subheading.dart';
@@ -32,7 +33,7 @@ class SpellingTestView extends HookConsumerWidget with UiLoggy {
         ),
         LinearProgressIndicator(
           value: (currentCardIndex.value + 1) / selectedWords.length,
-          minHeight: 30.0,
+          minHeight: 30.0.hardCoded,
         ),
         const SizedBox(height: UiDimensions.largeGap),
         Row(
@@ -43,7 +44,7 @@ class SpellingTestView extends HookConsumerWidget with UiLoggy {
               child: IconButton(
                   icon: const Icon(
                     Icons.fast_rewind,
-                    size: iconSize,
+                    size: UiDimensions.iconButtonSize,
                   ),
                   onPressed: currentCardIndex.value == 0
                       ? null
@@ -55,7 +56,7 @@ class SpellingTestView extends HookConsumerWidget with UiLoggy {
             ),
             Expanded(
                 child: SizedBox(
-              height: buttonHeight,
+              height: UiDimensions.buttonHeight,
               child: ElevatedButton(
                 onPressed: () =>
                     ttsService.speak(selectedWords[currentCardIndex.value]),
@@ -71,7 +72,7 @@ class SpellingTestView extends HookConsumerWidget with UiLoggy {
               child: IconButton(
                 icon: const Icon(
                   Icons.fast_forward,
-                  size: iconSize,
+                  size: UiDimensions.iconButtonSize,
                 ),
                 onPressed: currentCardIndex.value == selectedWords.length - 1
                     ? null

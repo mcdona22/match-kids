@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/presentation/hero_with_graphic_view.dart';
 import 'package:little_star_flashcards/core/ui/screen_names.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_test_view.dart';
@@ -32,20 +33,11 @@ class SpellingTestBody extends HookConsumerWidget with UiLoggy {
       child: ListView(
         padding: const EdgeInsets.all(UiDimensions.cardPadding),
         children: [
-          Hero(
-              tag: '$spellingScreenTitle-hero',
-              child: showGraphic
-                  ? SizedBox(
-                      height: 300.0,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          'assets/images/spelling.webp',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
-                  : const SizedBox.shrink()),
+          HeroWithGraphicView(
+            showGraphic: showGraphic,
+            graphicPath: 'assets/images/numbers.jpg',
+            heroTag: '$spellingScreenTitle-hero',
+          ),
 
           if (!session.testMode)
             SpellingWordSelectionCard(

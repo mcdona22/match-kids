@@ -26,7 +26,7 @@ class HomeScreen extends HookConsumerWidget {
         buttonKey: const ValueKey('spelling-card-button'),
         onPressed: () => context.pushNamed(AppRoute.spellingTest.name),
       ),
-      const KidAppealingActivityCard(
+      KidAppealingActivityCard(
         key: const ValueKey('number-card'),
         title: flashCardScreenTitle,
         description:
@@ -34,9 +34,7 @@ class HomeScreen extends HookConsumerWidget {
         imagePath: 'assets/images/numbers.jpg',
         buttonLabel: 'Little Star Number Cards',
         buttonKey: const ValueKey('number-card-button'),
-        onPressed: null,
-
-        // onPressed: () => context.pushNamed(AppRoute.numberFlashCard.name),
+        onPressed: () => context.pushNamed(AppRoute.numberFlashCard.name),
       ),
     ];
 

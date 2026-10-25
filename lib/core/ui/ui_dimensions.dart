@@ -13,12 +13,17 @@ class UiDimensions {
 
   static const double cardPadding = 22;
   static const double inlineGap = 8;
-  static const double sectionGap = 12;
   static const double blockGap = 16;
-  static const double largeGap = 24;
+  static const double sectionGap = 12;
+  static const double largeGap = sectionGap * 2;
+  static const double xlGap = sectionGap * 3;
 
   static const defaultToolbarHeight = 90.0;
 
   static const smallHeight = 700.0;
   static const mobileWidth = 450.0;
+
+  static const iconButtonSize = 45.0;
+
+  static double buttonHeight = 75.0;
 }
