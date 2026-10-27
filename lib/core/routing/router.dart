@@ -10,7 +10,7 @@ enum AppRoute { home, numberFlashCard, spellingTest }
 
 GoRouter routerConfig = GoRouter(
   // initialLocation: '/',
-  initialLocation: '/${AppRoute.numberFlashCard.name}',
+  initialLocation: '/',
   debugLogDiagnostics: true,
   navigatorKey: rootNavigatorKey,
   routes: [

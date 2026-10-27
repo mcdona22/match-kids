@@ -39,11 +39,12 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
             spacing: UiDimensions.lg,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              HeroWithGraphicView(
-                showGraphic: showGraphic,
-                graphicPath: 'assets/images/numbers.jpg',
-                heroTag: '$flashCardScreenTitle-hero',
-              ),
+              if (!state.testMode)
+                HeroWithGraphicView(
+                  showGraphic: showGraphic,
+                  graphicPath: 'assets/images/numbers.jpg',
+                  heroTag: '$flashCardScreenTitle-hero',
+                ),
               if (state.testMode)
                 const Expanded(child: ActiveSessionView())
               else
