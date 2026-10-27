@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:little_star_flashcards/core/providers/shared_preferences_provider.dart';
 import 'package:little_star_flashcards/features/simple-flash-cards/flash_card_state.dart';
@@ -10,8 +11,10 @@ part 'flash_screen_controller.g.dart';
 @riverpod
 class FlashScreenController extends _$FlashScreenController with UiLoggy {
   static const _key = 'little_star.flash_card_session';
-  static const _defaultStackSize = 10;
+  static const _defaultStackSize = 20;
   static const _defaultHighestInt = 5;
+  static const _defaultChallengingSlice = 0.35;
+  static const _defaultGimmeSlice = 0.2;
 
   @override
   FlashCardState build() {
@@ -56,9 +59,29 @@ class FlashScreenController extends _$FlashScreenController with UiLoggy {
 
   void stopTest() => state = state.copyWith(testMode: false, cardDeck: []);
 
-  _newCardDeck() {
-    return List.generate(state.cardCount, (i) => i + 1);
+  List<int> _newCardDeck() {
+    final random = Random();
+    final requiredHardNumberCount = state.cardCount * _defaultChallengingSlice;
+    final remainder = state.cardCount - requiredHardNumberCount;
+    final gimmeThreshold = (state.cardCount * _defaultGimmeSlice).toInt();
+
+    loggy
+        .debug('{hardCount: $requiredHardNumberCount, secureCount: $remainder, '
+            'gimme: $gimmeThreshold}');
+    final hardNumbers = List.generate(requiredHardNumberCount.toInt(),
+        (_) => state.highestInt - 1 + random.nextInt(2));
+    final secureNumbers = List.generate(
+        state.cardCount - requiredHardNumberCount.toInt(),
+        (_) => _getRandomBetween(gimmeThreshold, state.highestInt - 1, random));
+    loggy.debug('hard numbers: $hardNumbers');
+    loggy.debug('secure numbers: $secureNumbers');
+    final all = [...secureNumbers, ...hardNumbers];
+    loggy.debug(all);
+    return all;
   }
+
+  int _getRandomBetween(int min, int max, Random random) =>
+      min + random.nextInt((max - min) + 1);
 
   void _writePreferences({FlashCardState? session}) {
     loggy.debug('persisting session preferences : ${session ?? state}');

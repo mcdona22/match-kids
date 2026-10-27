@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/application/hard_coded.dart';
 import 'package:little_star_flashcards/core/application/tts_provider.dart';
+import 'package:little_star_flashcards/features/simple-flash-cards/presentation/flash_screen_controller.dart';
 import 'package:loggy/loggy.dart';
 
 class FlashCard extends HookConsumerWidget with UiLoggy {
@@ -13,22 +15,33 @@ class FlashCard extends HookConsumerWidget with UiLoggy {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final currentIndex =
+        ref.watch(flashScreenControllerProvider).currentCardIndex;
     final tts = ref.read(ttsProvider);
-    return ClipOval(
-      child: Material(
-        color: theme.colorScheme.primary,
-        child: InkWell(
-          onTap: () => tts.speak(value.toString()),
-          child: SizedBox(
-            width: size,
-            height: size,
-            child: Center(
-              child: Text(
-                '$value',
-                style: theme.textTheme.displayLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 132,
-                  color: theme.colorScheme.onPrimary,
+    return TweenAnimationBuilder(
+      key: ValueKey(currentIndex),
+      tween: Tween<double>(begin: 0.5, end: 1.0),
+      duration: Duration(milliseconds: 350.hardCoded),
+      builder: (_, scale, child) => Transform.scale(
+        scale: scale,
+        child: child,
+      ),
+      child: ClipOval(
+        child: Material(
+          color: theme.colorScheme.primary,
+          child: InkWell(
+            onTap: () => tts.speak(value.toString()),
+            child: SizedBox(
+              width: size,
+              height: size,
+              child: Center(
+                child: Text(
+                  '$value',
+                  style: theme.textTheme.displayLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 132,
+                    color: theme.colorScheme.onPrimary,
+                  ),
                 ),
               ),
             ),

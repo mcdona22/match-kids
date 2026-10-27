@@ -45,14 +45,18 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
                 heroTag: '$flashCardScreenTitle-hero',
               ),
               if (state.testMode)
-                Expanded(child: const ActiveSessionView())
+                const Expanded(child: ActiveSessionView())
               else
                 Column(
                   spacing: UiDimensions.lg,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const ScreenSubheading(subtitle: 'Session Details'),
-                    SessionSummary(state: state)
+                    Card(
+                        child: Padding(
+                      padding: const EdgeInsets.all(UiDimensions.cardPadding),
+                      child: SessionSummary(state: state),
+                    ))
                   ],
                 ),
             ],
