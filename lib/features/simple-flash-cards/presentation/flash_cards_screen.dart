@@ -53,10 +53,11 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
                   children: [
                     const ScreenSubheading(subtitle: 'Session Details'),
                     Card(
-                        child: Padding(
-                      padding: const EdgeInsets.all(UiDimensions.cardPadding),
-                      child: SessionSummary(state: state),
-                    ))
+                      child: Padding(
+                        padding: const EdgeInsets.all(UiDimensions.cardPadding),
+                        child: SessionSummary(state: state),
+                      ),
+                    )
                   ],
                 ),
             ],

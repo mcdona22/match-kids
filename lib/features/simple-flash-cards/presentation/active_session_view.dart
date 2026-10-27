@@ -12,6 +12,7 @@ class ActiveSessionView extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    loggy.debug('here');
     final state = ref.watch(flashScreenControllerProvider);
     final cardValue = state.cardDeck[state.currentCardIndex];
     return Padding(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/simple-flash-cards/flash_card_state.dart';
@@ -12,23 +14,83 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final editMode = useState<bool>(false);
+    final countController =
+        useTextEditingController(text: '${state.cardCount}');
+    final maxNumberController =
+        useTextEditingController(text: '${state.highestInt}');
+
     return Column(
       spacing: UiDimensions.largeGap,
       children: [
-        Text('Stack count: ${state.cardCount}'),
-        Text('Max Number: ${state.highestInt}'),
+        TextEditWidget(
+            label: 'Card count (1..10)',
+            controller: countController,
+            enabled: editMode.value),
+        TextEditWidget(
+            label: 'Max Number (1..10)',
+            controller: maxNumberController,
+            enabled: editMode.value),
         Row(
           spacing: UiDimensions.largeGap,
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             FilledButton.icon(
                 onPressed:
                     ref.read(flashScreenControllerProvider.notifier).startTest,
                 label: const Text('Start Test')),
-            FilledButton.icon(onPressed: () {}, label: Text('Edit Details'))
+            OutlinedButton.icon(
+                onPressed: editMode.value
+                    ? () {
+                        editMode.value = false;
+                        saveSessionEdits(
+                            countController, maxNumberController, ref);
+                      }
+                    : () => editMode.value = true,
+                icon: Icon(editMode.value ? Icons.save : Icons.edit),
+                label: Text(editMode.value ? 'Save Details' : 'Edit Details'))
           ],
         )
       ],
+    );
+  }
+
+  void saveSessionEdits(TextEditingController cardCount,
+      TextEditingController maxCardNumber, WidgetRef ref) {
+    final state = ref.watch(flashScreenControllerProvider);
+
+    final count = int.tryParse(cardCount.text) ?? state.cardCount;
+    final maxCard = int.tryParse(maxCardNumber.text) ?? state.highestInt;
+    ref
+        .read(flashScreenControllerProvider.notifier)
+        .updateSessionConfig(count, maxCard);
+  }
+}
+
+class TextEditWidget extends StatelessWidget {
+  const TextEditWidget(
+      {required this.label,
+      required this.controller,
+      this.enabled = false,
+      super.key});
+
+  final String label;
+  final TextEditingController controller;
+  final bool enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return TextField(
+      style: textTheme.headlineLarge,
+      controller: controller,
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
+      enabled: enabled,
+      decoration: InputDecoration(
+          labelText: label, labelStyle: textTheme.headlineSmall),
     );
   }
 }

@@ -14,7 +14,7 @@ class FlashScreenController extends _$FlashScreenController with UiLoggy {
   static const _defaultStackSize = 20;
   static const _defaultHighestInt = 5;
   static const _defaultChallengingSlice = 0.35;
-  static const _defaultGimmeSlice = 0.2;
+  static const _defaultGimmeSlice = 0.4;
 
   @override
   FlashCardState build() {
@@ -59,23 +59,33 @@ class FlashScreenController extends _$FlashScreenController with UiLoggy {
 
   void stopTest() => state = state.copyWith(testMode: false, cardDeck: []);
 
+  void updateSessionConfig(int count, int maxCard) {
+    state = state.copyWith(
+        cardCount: count, highestInt: maxCard, currentCardIndex: 0);
+    _writePreferences();
+    loggy.debug('saved session config: $state');
+  }
+
   List<int> _newCardDeck() {
     final random = Random();
     final requiredHardNumberCount = state.cardCount * _defaultChallengingSlice;
     final remainder = state.cardCount - requiredHardNumberCount;
-    final gimmeThreshold = (state.cardCount * _defaultGimmeSlice).toInt();
+    final gimmeThreshold = (state.highestInt * _defaultGimmeSlice).toInt();
 
     loggy
         .debug('{hardCount: $requiredHardNumberCount, secureCount: $remainder, '
             'gimme: $gimmeThreshold}');
-    final hardNumbers = List.generate(requiredHardNumberCount.toInt(),
-        (_) => state.highestInt - 1 + random.nextInt(2));
+    final hardNumbers = List.generate(
+        requiredHardNumberCount.toInt(),
+        (_) =>
+            _getRandomBetween(state.highestInt - 2, state.highestInt, random));
     final secureNumbers = List.generate(
         state.cardCount - requiredHardNumberCount.toInt(),
         (_) => _getRandomBetween(gimmeThreshold, state.highestInt - 1, random));
     loggy.debug('hard numbers: $hardNumbers');
     loggy.debug('secure numbers: $secureNumbers');
     final all = [...secureNumbers, ...hardNumbers];
+    all.shuffle();
     loggy.debug(all);
     return all;
   }
