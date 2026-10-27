@@ -18,8 +18,8 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final showGraphic =
-        MediaQuery.sizeOf(context).height >= UiDimensions.smallHeight;
+    final screenHeight = MediaQuery.sizeOf(context).height;
+    final showGraphic = screenHeight >= UiDimensions.smallHeight;
     final state = ref.watch(flashScreenControllerProvider);
 
     return Scaffold(
@@ -42,6 +42,7 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
                 HeroWithGraphicView(
                   showGraphic: showGraphic,
                   graphicPath: 'assets/images/numbers.jpg',
+                  height: screenHeight * 0.25,
                   heroTag: '$flashCardScreenTitle-hero',
                 ),
               if (state.testMode)
