@@ -14,6 +14,7 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
     final editMode = useState<bool>(false);
     final countController =
         useTextEditingController(text: '${state.cardCount}');
@@ -31,15 +32,14 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
             label: 'Max Number (1..10)',
             controller: maxNumberController,
             enabled: editMode.value),
-        Row(
-          spacing: UiDimensions.largeGap,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            FilledButton.icon(
-                onPressed:
-                    ref.read(flashScreenControllerProvider.notifier).startTest,
-                label: const Text('Start Test')),
-            OutlinedButton.icon(
+        Padding(
+          padding: const EdgeInsets.symmetric(
+              vertical: UiDimensions.xl, horizontal: UiDimensions.xlGap * 2),
+          child: Column(
+            spacing: UiDimensions.blockGap,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              OutlinedButton.icon(
                 onPressed: editMode.value
                     ? () {
                         editMode.value = false;
@@ -48,8 +48,19 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
                       }
                     : () => editMode.value = true,
                 icon: Icon(editMode.value ? Icons.save : Icons.edit),
-                label: Text(editMode.value ? 'Save Details' : 'Edit Details'))
-          ],
+                label: Text(editMode.value ? 'Save Details' : 'Edit Details'),
+              ),
+              SizedBox(
+                height: 60.0,
+                child: FilledButton.icon(
+                  onPressed: ref
+                      .read(flashScreenControllerProvider.notifier)
+                      .startTest,
+                  label: const Text('Start Test'),
+                ),
+              ),
+            ],
+          ),
         )
       ],
     );

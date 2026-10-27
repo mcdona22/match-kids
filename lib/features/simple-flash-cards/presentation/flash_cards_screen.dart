@@ -21,7 +21,6 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
     final showGraphic =
         MediaQuery.sizeOf(context).height >= UiDimensions.smallHeight;
     final state = ref.watch(flashScreenControllerProvider);
-    loggy.debug('Current flash card session state: $state');
 
     return Scaffold(
       appBar: ScreenUtils.createAppBar(

@@ -12,7 +12,6 @@ class ActiveSessionView extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    loggy.debug('here');
     final state = ref.watch(flashScreenControllerProvider);
     final cardValue = state.cardDeck[state.currentCardIndex];
     return Padding(
@@ -51,7 +50,7 @@ class NumberDots extends HookConsumerWidget with UiLoggy {
     final showHelp = useState(initialHelp);
 
     return SizedBox(
-      width: 250.0,
+      width: 270.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: UiDimensions.sectionGap,
@@ -66,7 +65,7 @@ class NumberDots extends HookConsumerWidget with UiLoggy {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => Container(
               decoration: BoxDecoration(
-                color: theme.primaryColor,
+                color: theme.colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(5.0),
                 border: Border.all(
                   color: theme.colorScheme.onSurface,
@@ -75,7 +74,7 @@ class NumberDots extends HookConsumerWidget with UiLoggy {
               child: index < value
                   ? showHelp.value
                       ? Container(
-                          color: theme.colorScheme.primaryFixed,
+                          color: theme.colorScheme.onPrimaryContainer,
                           child: Center(
                             child: Text(
                               '${index + 1}',
