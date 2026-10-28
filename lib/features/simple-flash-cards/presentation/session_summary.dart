@@ -12,10 +12,12 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
 
   final FlashCardState state;
 
+  // final ValueNotifier<bool> editMode;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final editMode = useState<bool>(false);
+    // final theme = Theme.of(context);
+    final ValueNotifier<bool> editMode = useState<bool>(false);
     final countController =
         useTextEditingController(text: '${state.cardCount}');
     final maxNumberController =
