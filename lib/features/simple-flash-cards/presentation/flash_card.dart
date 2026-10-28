@@ -26,21 +26,23 @@ class FlashCard extends HookConsumerWidget with UiLoggy {
         scale: scale,
         child: child,
       ),
-      child: ClipOval(
-        child: Material(
-          color: theme.colorScheme.primary,
-          child: InkWell(
-            onTap: () => tts.speak(value.toString()),
-            child: SizedBox(
-              width: size,
-              height: size,
-              child: Center(
-                child: Text(
-                  '$value',
-                  style: theme.textTheme.displayLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 132,
-                    color: theme.colorScheme.onPrimary,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: size, maxHeight: size),
+        child: AspectRatio(
+          aspectRatio: 1.0,
+          child: ClipOval(
+            child: Material(
+              color: theme.colorScheme.primary,
+              child: InkWell(
+                onTap: () => tts.speak(value.toString()),
+                child: Center(
+                  child: Text(
+                    '$value',
+                    style: theme.textTheme.displayLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 132,
+                      color: theme.colorScheme.onPrimary,
+                    ),
                   ),
                 ),
               ),

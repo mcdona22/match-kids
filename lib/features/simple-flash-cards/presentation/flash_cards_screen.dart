@@ -34,34 +34,37 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
         maxWidth: 800.0,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
-          child: Column(
-            spacing: UiDimensions.lg,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (!state.testMode)
-                HeroWithGraphicView(
-                  showGraphic: showGraphic,
-                  graphicPath: 'assets/images/numbers.jpg',
-                  height: screenHeight * 0.25,
-                  heroTag: '$flashCardScreenTitle-hero',
-                ),
-              if (state.testMode)
-                const Expanded(child: ActiveSessionView())
-              else
-                Column(
-                  spacing: UiDimensions.lg,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const ScreenSubheading(subtitle: 'Session Details'),
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(UiDimensions.cardPadding),
-                        child: SessionSummary(state: state),
-                      ),
-                    )
-                  ],
-                ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              spacing: UiDimensions.lg,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (!state.testMode)
+                  HeroWithGraphicView(
+                    showGraphic: showGraphic,
+                    graphicPath: 'assets/images/numbers.jpg',
+                    height: screenHeight * 0.25,
+                    heroTag: '$flashCardScreenTitle-hero',
+                  ),
+                if (state.testMode)
+                  const Expanded(child: ActiveSessionView())
+                else
+                  Column(
+                    spacing: UiDimensions.lg,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const ScreenSubheading(subtitle: 'Session Details'),
+                      Card(
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.all(UiDimensions.cardPadding),
+                          child: SessionSummary(state: state),
+                        ),
+                      )
+                    ],
+                  ),
+              ],
+            ),
           ),
         ),
       ),

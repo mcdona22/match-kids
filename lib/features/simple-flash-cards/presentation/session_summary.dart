@@ -25,11 +25,11 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
       spacing: UiDimensions.largeGap,
       children: [
         TextEditWidget(
-            label: 'Card count',
+            label: 'Cards in a deck',
             controller: countController,
             enabled: editMode.value),
         TextEditWidget(
-            label: 'Max Number (1..10)',
+            label: 'Largest number',
             controller: maxNumberController,
             enabled: editMode.value),
         Padding(
