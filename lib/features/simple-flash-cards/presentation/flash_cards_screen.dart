@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:little_star_flashcards/core/presentation/centred_constrained_widget.dart';
 import 'package:little_star_flashcards/core/presentation/hero_with_graphic_view.dart';
@@ -21,6 +22,7 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
     final screenHeight = MediaQuery.sizeOf(context).height;
     final showGraphic = screenHeight >= UiDimensions.smallHeight;
     final state = ref.watch(flashScreenControllerProvider);
+    final editMode = useState<bool>(false);
 
     return Scaffold(
       appBar: ScreenUtils.createAppBar(
@@ -34,37 +36,34 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
         maxWidth: 800.0,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
-          child: SingleChildScrollView(
-            child: Column(
-              spacing: UiDimensions.lg,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (!state.testMode)
-                  HeroWithGraphicView(
-                    showGraphic: showGraphic,
-                    graphicPath: 'assets/images/numbers.jpg',
-                    height: screenHeight * 0.25,
-                    heroTag: '$flashCardScreenTitle-hero',
-                  ),
-                if (state.testMode)
-                  const Expanded(child: ActiveSessionView())
-                else
-                  Column(
-                    spacing: UiDimensions.lg,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const ScreenSubheading(subtitle: 'Session Details'),
-                      Card(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.all(UiDimensions.cardPadding),
-                          child: SessionSummary(state: state),
-                        ),
-                      )
-                    ],
-                  ),
-              ],
-            ),
+          child: Column(
+            spacing: UiDimensions.lg,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (!state.testMode && !editMode.value)
+                HeroWithGraphicView(
+                  showGraphic: showGraphic,
+                  graphicPath: 'assets/images/numbers.jpg',
+                  height: screenHeight * 0.25,
+                  heroTag: '$flashCardScreenTitle-hero',
+                ),
+              if (state.testMode)
+                const Expanded(child: ActiveSessionView())
+              else
+                Column(
+                  spacing: UiDimensions.lg,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const ScreenSubheading(subtitle: 'Session Details'),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(UiDimensions.cardPadding),
+                        child: SessionSummary(state: state, editMode: editMode),
+                      ),
+                    )
+                  ],
+                ),
+            ],
           ),
         ),
       ),
