@@ -23,21 +23,33 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
         useTextEditingController(text: '${state.cardCount}');
     final maxNumberController =
         useTextEditingController(text: '${state.highestInt}');
-
+    const textControlWidth = 150.0;
     return Column(
-      spacing: UiDimensions.largeGap,
+      spacing: UiDimensions.md,
       children: [
-        TextEditWidget(
-            label: 'Cards in a deck',
-            controller: countController,
-            enabled: editMode.value),
-        TextEditWidget(
-            label: 'Largest number',
-            controller: maxNumberController,
-            enabled: editMode.value),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              width: textControlWidth,
+              child: TextEditWidget(
+                  label: 'Largest number',
+                  controller: maxNumberController,
+                  enabled: editMode.value),
+            ),
+            SizedBox(
+              width: textControlWidth,
+              child: TextEditWidget(
+                label: 'Cards in a deck',
+                controller: countController,
+                enabled: editMode.value,
+              ),
+            ),
+          ],
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: UiDimensions.xl, horizontal: UiDimensions.xlGap * 2),
+              vertical: UiDimensions.md, horizontal: UiDimensions.xlGap * 2),
           child: Column(
             spacing: UiDimensions.blockGap,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -54,7 +66,7 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
                 label: Text(editMode.value ? 'Save Details' : 'Edit Details'),
               ),
               SizedBox(
-                height: 60.0,
+                height: 40.0,
                 child: FilledButton.icon(
                   onPressed: ref
                       .read(flashScreenControllerProvider.notifier)
@@ -96,15 +108,15 @@ class TextEditWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return TextField(
-      style: textTheme.headlineLarge,
+      style: textTheme.headlineSmall,
       controller: controller,
       keyboardType: TextInputType.number,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
       ],
       enabled: enabled,
-      decoration: InputDecoration(
-          labelText: label, labelStyle: textTheme.headlineSmall),
+      decoration:
+          InputDecoration(labelText: label, labelStyle: textTheme.titleLarge),
     );
   }
 }

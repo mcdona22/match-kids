@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -63,7 +65,7 @@ class NumberDots extends HookConsumerWidget with UiLoggy {
           //     icon: const Icon(Icons.help_outline)),
           GridView.builder(
             shrinkWrap: true,
-            itemCount: highest,
+            itemCount: max(10, highest),
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => Container(
               decoration: BoxDecoration(
