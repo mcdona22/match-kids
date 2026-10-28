@@ -35,7 +35,7 @@ class SpellingTestBody extends HookConsumerWidget with UiLoggy {
         children: [
           HeroWithGraphicView(
             showGraphic: showGraphic,
-            graphicPath: 'assets/images/numbers.jpg',
+            graphicPath: 'assets/images/spelling.webp',
             heroTag: '$spellingScreenTitle-hero',
           ),
 

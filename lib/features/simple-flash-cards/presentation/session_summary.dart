@@ -25,7 +25,7 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
       spacing: UiDimensions.largeGap,
       children: [
         TextEditWidget(
-            label: 'Card count (1..10)',
+            label: 'Card count',
             controller: countController,
             enabled: editMode.value),
         TextEditWidget(
