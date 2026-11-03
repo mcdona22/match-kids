@@ -92,16 +92,24 @@ class FlashCardActiveSessionControls extends HookConsumerWidget with UiLoggy {
         ),
         Expanded(
           child: SizedBox(
-              height: UiDimensions.buttonHeight,
-              child: FilledButton(
-                  onPressed: controller.stopTest, child: const Text('Finish'))),
+            height: 42.0,
+            // height: UiDimensions.buttonHeight,
+            child: FilledButton.icon(
+              icon: const Icon(Icons.fast_forward),
+              onPressed: session.currentCardIndex < session.cardCount - 1
+                  ? controller.incrementIndex
+                  : null,
+              label: const Text('Next'),
+            ),
+          ),
         ),
         IconButton(
-          onPressed: session.currentCardIndex < session.cardCount - 1
-              ? controller.incrementIndex
-              : null,
+          onPressed: controller.stopTest,
+          // onPressed: session.currentCardIndex < session.cardCount - 1
+          //     ? controller.incrementIndex
+          //     : null,
           icon: const Icon(
-            Icons.fast_forward,
+            Icons.repeat_sharp,
             size: UiDimensions.iconButtonSize,
           ),
         ),
