@@ -17,6 +17,16 @@ class HomeScreen extends HookConsumerWidget {
 
     final activityCards = [
       KidAppealingActivityCard(
+        key: const ValueKey('multiply-card'),
+        title: multiplyScreenTitle,
+        description:
+            'Practice multiplication facts with fun, interactive exercises.',
+        imagePath: 'assets/images/multiply.webp',
+        buttonLabel: 'Little Star Multiply',
+        buttonKey: const ValueKey('multiply-card-button'),
+        onPressed: () => context.pushNamed(AppRoute.multiply.name),
+      ),
+      KidAppealingActivityCard(
         key: const ValueKey('spelling-card'),
         title: spellingScreenTitle,
         description:

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:little_star_flashcards/features/home/home_screen.dart';
+import 'package:little_star_flashcards/features/multiply/multiply_screen.dart';
 import 'package:little_star_flashcards/features/spelling_test/presentation/spelling_test_screen.dart';
 import 'package:little_star_flashcards/main.dart';
 
 import '../../features/simple-flash-cards/presentation/flash_cards_screen.dart';
 
-enum AppRoute { home, numberFlashCard, spellingTest }
+enum AppRoute { home, numberFlashCard, spellingTest, multiply }
 
 GoRouter routerConfig = GoRouter(
   // initialLocation: '/',
@@ -31,6 +32,12 @@ GoRouter routerConfig = GoRouter(
       name: AppRoute.home.name,
       pageBuilder: (_, state) =>
           MaterialPage(child: const HomeScreen(), key: state.pageKey),
+    ),
+    GoRoute(
+      path: '/${AppRoute.multiply.name}',
+      name: AppRoute.multiply.name,
+      pageBuilder: (_, state) =>
+          MaterialPage(child: const MultiplyScreen(), key: state.pageKey),
     ),
   ],
 );
