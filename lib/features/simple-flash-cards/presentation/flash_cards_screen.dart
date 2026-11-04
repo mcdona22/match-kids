@@ -33,7 +33,7 @@ class FlashCardsScreen extends HookConsumerWidget with UiLoggy {
         ],
       ),
       body: CentredConstrainedWidget(
-        maxWidth: 800.0,
+        maxWidth: UiDimensions.centreConstrainedWidth,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Column(

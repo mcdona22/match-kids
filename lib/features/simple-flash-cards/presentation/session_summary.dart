@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/presentation/numeric_text_edit_widget.dart';
 import 'package:little_star_flashcards/core/ui/ui_dimensions.dart';
 import 'package:little_star_flashcards/features/simple-flash-cards/flash_card_state.dart';
 import 'package:little_star_flashcards/features/simple-flash-cards/presentation/flash_screen_controller.dart';
@@ -32,14 +32,14 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
           children: [
             SizedBox(
               width: textControlWidth,
-              child: TextEditWidget(
+              child: NumericTextEditWidget(
                   label: 'Largest number',
                   controller: maxNumberController,
                   enabled: editMode.value),
             ),
             SizedBox(
               width: textControlWidth,
-              child: TextEditWidget(
+              child: NumericTextEditWidget(
                 label: 'Cards in a deck',
                 controller: countController,
                 enabled: editMode.value,
@@ -49,7 +49,9 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: UiDimensions.md, horizontal: UiDimensions.xlGap * 2),
+            vertical: UiDimensions.md,
+            horizontal: UiDimensions.xlGap * 2,
+          ),
           child: Column(
             spacing: UiDimensions.blockGap,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -90,33 +92,5 @@ class SessionSummary extends HookConsumerWidget with UiLoggy {
     ref
         .read(flashScreenControllerProvider.notifier)
         .updateSessionConfig(count, maxCard);
-  }
-}
-
-class TextEditWidget extends StatelessWidget {
-  const TextEditWidget(
-      {required this.label,
-      required this.controller,
-      this.enabled = false,
-      super.key});
-
-  final String label;
-  final TextEditingController controller;
-  final bool enabled;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return TextField(
-      style: textTheme.headlineSmall,
-      controller: controller,
-      keyboardType: TextInputType.number,
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-      ],
-      enabled: enabled,
-      decoration:
-          InputDecoration(labelText: label, labelStyle: textTheme.titleLarge),
-    );
   }
 }

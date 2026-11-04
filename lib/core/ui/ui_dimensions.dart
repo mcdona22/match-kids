@@ -1,6 +1,8 @@
 class UiDimensions {
   UiDimensions._();
 
+  static const centreConstrainedWidth = 600.0;
+
   static const double xxs = 4;
   static const double xs = 6;
   static const double sm = 8;

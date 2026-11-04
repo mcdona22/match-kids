@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:little_star_flashcards/core/presentation/centred_constrained_widget.dart';
 import 'package:little_star_flashcards/core/presentation/hero_with_graphic_view.dart';
 import 'package:little_star_flashcards/core/presentation/screen_title.dart';
 import 'package:little_star_flashcards/core/presentation/screen_utils.dart';
@@ -24,20 +25,23 @@ class MultiplyScreen extends HookConsumerWidget with UiLoggy {
             ToggleThemModeButton(),
           ],
         ),
-        body: const Column(
-          spacing: UiDimensions.md,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            HeroWithGraphicView(
-              showGraphic: true,
-              graphicPath: 'assets/images/multiply.webp',
-              // height: screenHeight * 0.25,
-              heroTag: '$multiplyScreenTitle-hero',
-            ),
-            PerformanceView(),
-            ConfigurationView(),
-            PracticeSessionView()
-          ],
+        body: const CentredConstrainedWidget(
+          maxWidth: UiDimensions.centreConstrainedWidth,
+          child: const Column(
+            spacing: UiDimensions.md,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HeroWithGraphicView(
+                showGraphic: true,
+                graphicPath: 'assets/images/multiply.webp',
+                // height: screenHeight * 0.25,
+                heroTag: '$multiplyScreenTitle-hero',
+              ),
+              ConfigurationView(),
+              PerformanceView(),
+              PracticeSessionView()
+            ],
+          ),
         ));
     return const Center(child: Text('Under Construction'));
   }
